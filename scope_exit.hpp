@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SCOPE_EXIT_HPP
+#define SCOPE_EXIT_HPP
 
 #include <utility>
 
@@ -10,8 +11,6 @@
 #else
 #define ANONYMOUS_VARIABLE(NAME) concat(NAME, __LINE__)
 #endif
-
-
 
 namespace detail
 {
@@ -42,6 +41,6 @@ namespace detail
 #define scope_exit \
 	auto ANONYMOUS_VARIABLE(SCOPE_EXIT_WHATEVER) = ::detail::dummy() + [&]()
 
-
+#endif
 
 
