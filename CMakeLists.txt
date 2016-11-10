@@ -8,6 +8,6 @@ set(SOURCE_FILES
         fast_find.hpp
         main.cpp
         random_engine.hpp
-        scope_exit.hpp custom_mpl.hpp typelist.hpp stringmanip.hpp)
+        scope_exit.hpp custom_mpl.hpp typelist.hpp stringmanip.hpp numerical.hpp prime_numbers.hpp containers.hpp circular_buffer.hpp)
 
 add_executable(custom_library ${SOURCE_FILES})

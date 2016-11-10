@@ -19,7 +19,11 @@ class session {
     Func function;
     std::vector<std::chrono::duration<double>> timings;
 public:
-    session(Func f) :
+    session(const Func& f) :
+            function(f)
+    {}
+
+    session(Func&& f) :
             function(std::move(f)) {}
 
     template<class ... Args>
@@ -32,13 +36,13 @@ public:
 
     }
 
-    //writes into the range until either exhausts it or timings exhaust
+    //writes into the range until either exhausts it or timings vector is exhausted
     template<typename Unit, typename OutputIt>
     void get_as(OutputIt first, OutputIt last) {
         auto it = timings.begin();
         for (; it != timings.end() && first != last;
                ++first, ++it) {
-            *first = *it;
+            *first = std::chrono::duration_cast<Unit>(*it);
         }
     }
 };
