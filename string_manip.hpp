@@ -9,8 +9,11 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include "iterator.hpp"
 
 namespace shino {
+    //TODO: reconsider return type of the join
     template<typename InputIt, typename Separator = std::string, typename Concluder = std::string>
     std::string join(InputIt first,
                      InputIt last,
@@ -41,7 +44,7 @@ namespace shino {
         std::size_t l = 0;
         std::size_t r = 0;
         std::size_t len = str.length();
-        for (std::basic_string<charT, char_traits>::size_type i = 0;
+        for (typename std::basic_string<charT, char_traits>::size_type i = 0;
                 i < str.length(); ++i)
         {
             if (i <= r)
@@ -64,9 +67,11 @@ namespace shino {
     template <typename charT, typename char_traits = std::char_traits<charT>>
     std::vector<std::size_t> z_function(const std::basic_string<charT, char_traits>& str)
     {
+        std::size_t l = 0;
+        std::size_t r = 0;
         std::size_t len = str.length();
         std::vector<std::size_t> z (len);
-        for (int i=1, l=0, r=0; i<len; ++i) {
+        for (int i=1; i<len; ++i) {
             if (i <= r) {
                 z[i] = std::min(r - i + 1, z[i - l]);
             }
@@ -76,6 +81,26 @@ namespace shino {
                 l = i,  r = i+z[i]-1;
             }
             return z;
+    };
+
+    //TODO: fix this
+    template <typename charT, typename char_traits = std::char_traits<charT>, class Allocator = std::allocator<charT>>
+    std::basic_string<charT, char_traits, Allocator>
+    operator*(const std::basic_string<charT, char_traits, Allocator>& in, std::size_t n)
+    {
+        //we don't care about the value, just get something
+        std::basic_string<charT, char_traits, Allocator> ret(n, charT());
+
+        auto appender = shino::append_iterator<std::string, std::string>(ret);
+        std::copy_n(stumbled_iterator<std::string>(in), n, appender);
+    };
+
+    template <typename charT, typename char_traits = std::char_traits<charT>, class Allocator = std::allocator<charT>>
+    std::basic_string<charT, char_traits, Allocator>
+    operator*(std::size_t n, const std::basic_string<charT, char_traits, Allocator>& in)
+    {
+        //we don't care about the value, just get something
+        return in * n;
     };
 }
 
