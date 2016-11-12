@@ -88,11 +88,21 @@ namespace shino {
     std::basic_string<charT, char_traits, Allocator>
     operator*(const std::basic_string<charT, char_traits, Allocator>& in, std::size_t n)
     {
-        //we don't care about the value, just get something
-        std::basic_string<charT, char_traits, Allocator> ret(n, charT());
+        if (n == 0)
+            return {};
+        if (n == 1)
+            return in;
 
-        auto appender = shino::append_iterator<std::string, std::string>(ret);
-        std::copy_n(stumbled_iterator<std::string>(in), n, appender);
+        std::string result;
+        if (n% 2 == 0)
+        {
+            auto half = in * (n / 2);
+            return half + half;
+        }
+        else
+        {
+            return (in * (n - 1)) + in;
+        }
     };
 
     template <typename charT, typename char_traits = std::char_traits<charT>, class Allocator = std::allocator<charT>>

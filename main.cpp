@@ -5,10 +5,9 @@
 
 int main()
 {
-    using namespace shino;
-    std::string s;
+    using shino::operator*;
+    std::string s(1, 'a');
     shino::append_iterator<std::string, std::string> it(s);
-    *it = "abc";
-    *it = "cde";
-    std::cout << s;
+    auto multiplied = s * 1024;
+    std::cout << multiplied;
 }
