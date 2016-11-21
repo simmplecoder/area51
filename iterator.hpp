@@ -43,6 +43,7 @@ namespace shino {
             proxy& operator=(const T& value)
             {
                 container += value;
+                return *this;
             }
 
             proxy(const proxy& other) = default;

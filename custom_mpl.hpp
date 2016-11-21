@@ -7,4 +7,9 @@
 
 #include "typelist.hpp"
 
+namespace shino
+{
+
+}
+
 #endif //CUSTOM_LIBRARY_CUSTOM_MPL_H

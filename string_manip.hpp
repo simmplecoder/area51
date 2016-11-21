@@ -10,15 +10,16 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <tuple>
 #include "iterator.hpp"
 
 namespace shino {
     //TODO: reconsider return type of the join
     template<typename InputIt, typename Separator = std::string, typename Concluder = std::string>
-    std::string join(InputIt first,
-                     InputIt last,
+    std::string join(InputIt first, InputIt last,
                      const Separator &separator,
-                     const Concluder &concluder) {
+                     const Concluder &concluder)
+    {
         if (first == last) {
             return concluder;
         }
@@ -83,7 +84,6 @@ namespace shino {
             return z;
     };
 
-    //TODO: fix this
     template <typename charT, typename char_traits = std::char_traits<charT>, class Allocator = std::allocator<charT>>
     std::basic_string<charT, char_traits, Allocator>
     operator*(const std::basic_string<charT, char_traits, Allocator>& in, std::size_t n)

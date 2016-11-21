@@ -1,13 +1,16 @@
-#include "scope_exit.hpp"
-#include <iostream>
-#include "string_manip.hpp"
 #include "iterator.hpp"
+#include <string>
+#include <iostream>
 
 int main()
 {
-    using shino::operator*;
-    std::string s(1, 'a');
-    shino::append_iterator<std::string, std::string> it(s);
-    auto multiplied = s * 1024;
-    std::cout << multiplied;
+    std::string str;
+    shino::append_iterator<std::string, std::string> appiterator(str);
+    for (std::size_t i = 0; i < 5; ++i)
+    {
+        *appiterator = "abc";
+        ++appiterator;
+    }
+
+    std::cout << str;
 }
