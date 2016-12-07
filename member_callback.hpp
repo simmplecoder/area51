@@ -29,7 +29,17 @@ namespace shino
 
         R operator()(ArgTypes &&... args)
         {
-            return ((*object).*callback)(std::forward<ArgTypes>(args)...);
+            return (object->*callback)(std::forward<ArgTypes>(args)...);
+        }
+
+        void retarget(const std::shared_ptr<T>& ptr)
+        {
+            object = ptr;
+        }
+
+        void retarget(std::shared_ptr<T>&& ptr)
+        {
+            object = std::move(ptr);
         }
 
         std::shared_ptr<T> get()
