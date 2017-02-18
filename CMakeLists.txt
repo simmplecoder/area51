@@ -1,13 +1,26 @@
 cmake_minimum_required(VERSION 3.6)
-project(custom_library)
+project(sunrise)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wc++1z-extensions")
 
 set(SOURCE_FILES
-        timing_session.hpp
-        fast_find.hpp
-        main.cpp
-        random_engine.hpp
-        scope_exit.hpp custom_mpl.hpp typelist.hpp string_manip.hpp numerical.hpp prime_numbers.hpp containers.hpp circular_buffer.hpp iterator.hpp formatted_read.hpp)
+        src/timing_session.hpp
+        src/fast_find.hpp
+        src/main.cpp
+        src/random_engine.hpp
+        src/scope_exit.hpp
+        src/custom_mpl.hpp
+        src/typelist.hpp
+        src/string_manip.hpp
+        src/numerical.hpp
+        src/prime_numbers.hpp
+        src/containers.hpp
+        src/circular_buffer.hpp
+        src/iterator.hpp
+        src/formatted_read.hpp
+        src/sliding_window.hpp src/preprocessing_iterator.hpp src/deduce_first_parameter.hpp src/preprocessing_iterator.cpp src/numerical.cpp src/typelist.cpp)
 
-add_executable(custom_library ${SOURCE_FILES})
+add_executable(sunrise ${SOURCE_FILES})
+add_executable(sliding_window_tests tests/sliding_window_tests.cpp src/sliding_window.hpp)
+add_executable(first_parameter_extraction_tests tests/first_parameter_extraction_tests.cpp)
+add_executable(preprocessing_iterator_tests tests/preprocessing_iterator_tests.cpp)

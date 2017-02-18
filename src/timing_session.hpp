@@ -45,6 +45,8 @@ public:
             *first = std::chrono::duration_cast<Unit>(*it);
         }
     }
+
+
 };
 
 #endif

@@ -13,7 +13,7 @@
 
 //TODO: MAKE THIS TO BE GREAT!
 namespace shino {
-    template <typename T, template <typename ... > typename container = std::vector<T>>
+    template <typename T, typename Container = std::vector<T>>
     class circular_buffer
     {
         container cont;

@@ -6,6 +6,8 @@
 #define CUSTOM_LIBRARY_NUMERICAL_HPP
 
 #include <iterator>
+#include <numeric>
+#include <stdexcept
 
 namespace shino
 {
@@ -22,8 +24,6 @@ namespace shino
 
         return initvalue / distance;
     };
-
-
 }
 
 #include "prime_numbers.hpp"
