@@ -2,7 +2,7 @@
 .idea/
 cmake-build-debug/
 cmake-build-release/
-logs/
+logs/Log.md
 docs/
 makefile
 build/

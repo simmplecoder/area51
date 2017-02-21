@@ -21,7 +21,9 @@ Every function, class, or any other code should get through here before being me
  
  - <h4>Conformance: <font color=green>possible full</font> </h4>
   
-  Conformance is slightly severed here, because templates created some restrictions
+  Conformance is slightly severed here, because templates created some restrictions.
+  
+  Bugfix: post increment was pre incrementing. Fixed. Added full support for Iterator and OutputIterator concept.
   
   - <h4> Tests: <font color=red>very poor tests</font></h4>
   

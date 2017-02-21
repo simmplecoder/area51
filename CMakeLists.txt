@@ -18,9 +18,10 @@ set(SOURCE_FILES
         src/circular_buffer.hpp
         src/iterator.hpp
         src/formatted_read.hpp
-        src/sliding_window.hpp src/preprocessing_iterator.hpp src/deduce_first_parameter.hpp src/preprocessing_iterator.cpp src/numerical.cpp src/typelist.cpp)
+        src/sliding_window.hpp src/transform_iterator.hpp src/deduce_first_parameter.hpp src/transform_iterator.cpp src/numerical.cpp src/typelist.cpp src/deduce_single_parameter.hpp src/deduce_single_parameter.cpp)
 
 add_executable(sunrise ${SOURCE_FILES})
 add_executable(sliding_window_tests tests/sliding_window_tests.cpp src/sliding_window.hpp)
 add_executable(first_parameter_extraction_tests tests/first_parameter_extraction_tests.cpp)
-add_executable(preprocessing_iterator_tests tests/preprocessing_iterator_tests.cpp)
+add_executable(preprocessing_iterator_tests tests/transform_iterator_tests.cpp)
+add_executable(deduce_single_parameter_tests tests/deduce_single_parameter_tests.cpp)
