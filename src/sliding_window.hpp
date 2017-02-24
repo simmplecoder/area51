@@ -14,22 +14,22 @@ namespace shino
     template<typename BidirIt,
              typename OutputIt,
              typename T = typename std::iterator_traits<BidirIt>::value_type,
-             typename BinaryDoOp = std::plus<>,
-             typename BinaryUndoOp = std::minus<>>
+             typename BinaryAddOp = std::plus<>,
+             typename BinaryRemoveOp = std::minus<>>
     std::pair<BidirIt, OutputIt> sliding_window(BidirIt first,
                         BidirIt last,
                         OutputIt d_first,
                         typename std::iterator_traits<BidirIt>::difference_type length,
                         T init = {},
-                        BinaryDoOp add_op = {},
-                        BinaryUndoOp remove_op = {})
+                        BinaryAddOp add_op = {},
+                        BinaryRemoveOp remove_op = {})
     {
         if (first == last || length == 0)
         {
             return std::make_pair(first, d_first);
         }
 
-        BidirIt milestone(std::next(first, length)); //try to default construct
+        BidirIt milestone(std::next(first, length));
         auto tail = first;
 
         while (first != last && first != milestone)

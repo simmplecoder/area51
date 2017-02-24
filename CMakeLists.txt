@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.6)
 project(sunrise)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -std=c++1z -Wc++1z-extensions")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic-errors -std=c++1z -Wc++1z-extensions")
 
 set(SOURCE_FILES
         src/timing_session.hpp
@@ -18,10 +18,20 @@ set(SOURCE_FILES
         src/circular_buffer.hpp
         src/iterator.hpp
         src/formatted_read.hpp
-        src/sliding_window.hpp src/transform_iterator.hpp src/deduce_first_parameter.hpp src/transform_iterator.cpp src/numerical.cpp src/typelist.cpp src/deduce_single_parameter.hpp src/deduce_single_parameter.cpp src/sliding_window.cpp)
+        src/sliding_window.hpp
+        src/transform_iterator.hpp
+        src/deduce_first_parameter.hpp
+        src/transform_iterator.cpp
+        src/numerical.cpp
+        src/typelist.cpp
+        src/deduce_single_parameter.hpp
+        src/deduce_single_parameter.cpp
+        src/sliding_window.cpp
+        src/member_callback.hpp)
 
 add_executable(sunrise ${SOURCE_FILES})
 add_executable(sliding_window_tests tests/sliding_window_tests.cpp src/sliding_window.hpp)
 add_executable(first_parameter_extraction_tests tests/first_parameter_extraction_tests.cpp)
 add_executable(transform_iterator_tests tests/transform_iterator_tests.cpp)
 add_executable(deduce_single_parameter_tests tests/deduce_single_parameter_tests.cpp)
+add_executable(numerical_tests tests/numerical_tests.cpp)

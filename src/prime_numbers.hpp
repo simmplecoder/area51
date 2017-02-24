@@ -1,10 +1,6 @@
 //
 // Created by olzhas on 11/11/16.
 //
-
-#ifndef CUSTOM_LIBRARY_PRIME_NUMBERS_HPP
-#define CUSTOM_LIBRARY_PRIME_NUMBERS_HPP
-
 #ifndef PRIME_NUMBERS_H
 #define PRIME_NUMBERS_H
 

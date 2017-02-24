@@ -1,4 +1,4 @@
-Every function, class, or any other code should get through here before being merging into master branch. These attributes has to be provided:
+Every function, class, or any other code should get through here before being merged into master branch. These attributes has to be provided:
  
  - Specification
  - Code review (should include a link to a review)
@@ -8,19 +8,31 @@ Every function, class, or any other code should get through here before being me
  - Tests
  - Documentation
  
+ <h2>Template:</h2>
+ 
+  - <h4>Specification: </h4>
+  
+  - <h4>Code Review: </h4>
+ 
+  - <h4>Conformance: </h4>
+  
+  - <h4>Tests: </h4>
+   
+  - <h4>Documentation: </h4>
+ 
 ##sliding_window
 
- - <h4>Conformance: <font color=green>possible full</font> </h4>
+ - <h4>Conformance: <font color=green>maximum</font> </h4>
  
-   Conformance is slightly severed here, because templates created some restrictions.
+   Code now has very clear semantics which enable very powerful and clear combinations.
  
- - <h4> Tests: <font color=red>very poor tests</font></h4>
+ - <h4> Tests: <font color="green">good</font>, but could be better</h4>
  
    There is a test or two, but all of them are premade and non randomized, so the code might be silently hiding bugds inside.
  
- - <h4> Documentation: <font color=yellow>average</font></h4>
+ - <h4> Documentation: <font color="green">good</font></h4>
  
-   Documentation is present and covers the main parts of the code. It could use an example or two.
+   Documentation provides solid start for users.
  
  ##transform_iterator (ex preprocessing_iterator)
  
@@ -37,14 +49,32 @@ Every function, class, or any other code should get through here before being me
    After going through code review, easy of use increased and in general semantics got much clearer.
   
    Bugfix: post increment was pre incrementing. Fixed. Added full support for Iterator and OutputIterator concept.
+   
+   Bugfix: `transformer<>()` was incorrectly deducing types which lead to storing functor as reference. Now the transformoer will strip off references and constness.
   
   - <h4> Tests: <font color=red>very poor tests</font></h4>
   
-  There is a test or two, but all of them are premade and non randomized, so the code might be silently hiding bugds inside.
+  There is a test or two, but all of them are premade and non randomized, so the code might be silently hiding bugs inside.
   
   - <h4> Documentation: <font color=green>good</font></h4>
   
     Documentation covers most of the relevant parts of the code and explains how to use it.
+    
+##average
+
+   - <h4>Specification: </h4>
+   
+   >Given `InputIterator first, last` (which are `InputIterator`s), optionally `T initvalue = {}`,
+   compute the average of the elements denoted by iterator range `[first, last)`, starting the sum from
+   `initvalue`. Does not warn if integer division or similar happens.
+   
+   - <h4>Code Review: too small for review</h4>
+  
+   - <h4>Conformance: <font color="green">full</font></h4>
+   
+   - <h4>Tests: <font color="green">good</font>, but could be better</h4>
+    
+   - <h4>Documentation: <font color="green">good</font></h4>
   
 ##Future plans
 

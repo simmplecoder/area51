@@ -14,13 +14,15 @@ As can be seen from template declaration, `Functor` and `Iterator` types has to 
 
 To get better understanding of how things work, lets consider some parts of the code:
 
+
     template <typename U>
     proxy &operator=(U&& value)
     {
         *iterator = f(std::forward<U>(value));
         return *this;
     }
-    
+
+
 As can be seen from above, `Functor` must be a `Callable`, and have only one parameter. For the call site, `U` has to be implicitly convertible to functor's input parameter. Also, the result of the functor must be valid for expression `*iterator = result`, e.g. implicitly convertible to needed type.
 
     class proxy
@@ -34,6 +36,18 @@ The `proxy` class stores both `iterator` and `functor` by reference, so that no 
     {
         return proxy(iterator, functor);
     }
+    
+`shino::transformer<>()` will strip off any references or constness:
+
+    template <typename Functor, typename Iterator>
+    auto transformer(Functor&& f, Iterator&& iterator)
+    {
+        return transform_iterator<std::remove_const_t<std::remove_reference_t <Functor>>,
+                std::remove_const_t<std::remove_reference_t<Iterator>>>(std::forward<Functor>(f),
+                                                     std::forward<Iterator>(iterator));
+    }
+    
+Rationale for that: if the functor is stored by reference, it will probably be dangling. 
     
 
 ##Examples:

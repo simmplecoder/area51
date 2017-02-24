@@ -7,22 +7,18 @@
 
 #include <iterator>
 #include <numeric>
-#include <stdexcept
+#include <stdexcept>
 
 namespace shino
 {
-    template <typename ForwardIt, typename T>
-    T average(ForwardIt first, ForwardIt last, T initvalue = T()) //will be 0 for builtins
+    template <typename ForwardIt, typename T = typename std::iterator_traits<ForwardIt>::value_type>
+    T average(ForwardIt first, ForwardIt last, T initvalue = {}) //will be 0 for builtins
     {
-
-        for (; first != last; ++first)
-        {
-            initvalue += *first;
-        }
-
         auto distance = std::distance(first, last);
 
-        return initvalue / distance;
+        auto result = std::accumulate(first, last, initvalue);
+
+        return result / distance;
     };
 }
 
