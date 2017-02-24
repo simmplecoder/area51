@@ -1,25 +1,24 @@
-#ifndef SUNRISE_PREPROCESSING_ITERATOR_HPP
-#define SUNRISE_PREPROCESSING_ITERATOR_HPP
+#ifndef SUNRISE_TRANSFORM_ITERATOR_HPP
+#define SUNRISE_TRANSFORM_ITERATOR_HPP
 
 #include <iterator>
 
 namespace shino
 {
-    template<typename Functor, typename InputType, typename Iterator>
+    template<typename Functor, typename Iterator>
     class transform_iterator :
             public std::iterator<std::output_iterator_tag,
-                    InputType, void, void, void>
+                    void, void, void, void>
     {
         Functor functor;
-
         Iterator iterator;
     public:
-        transform_iterator(const Functor &f, const Iterator &it) :
+        transform_iterator(const Functor& f, const Iterator& it) :
                 functor(f),
                 iterator(it)
         {}
 
-        transform_iterator(Functor &&f, Iterator &&it) :
+        transform_iterator(Functor&& f, Iterator&& it) :
                 functor(f),
                 iterator(it)
         {}
@@ -31,17 +30,11 @@ namespace shino
             Iterator &iterator;
             Functor &f;
         public:
-            using value_type = InputType;
 
-            proxy &operator=(const value_type &value)
+            template <typename U>
+            proxy &operator=(U&& value)
             {
-                *iterator = f(value);
-                return *this;
-            }
-
-            proxy &operator=(value_type &&value)
-            {
-                *iterator = f(value);
+                *iterator = f(std::forward<U>(value));
                 return *this;
             }
 
@@ -88,31 +81,34 @@ namespace shino
         }
     };
 
-    template<typename Functor, typename InputType, typename Iterator>
-    bool operator==(const transform_iterator<Functor, InputType, Iterator>& lhs,
-                   const transform_iterator<Functor, InputType, Iterator>& rhs)
+    template<typename Functor, typename Iterator>
+    bool operator==(const transform_iterator<Functor, Iterator>& lhs,
+                   const transform_iterator<Functor, Iterator>& rhs)
     {
         return lhs.internal_iterator() == rhs.internal_iterator();
-    };
+    }
 
-    template <typename Functor, typename InputType, typename Iterator>
-    bool operator!=(const transform_iterator<Functor, InputType, Iterator>& lhs,
-                    const transform_iterator<Functor, InputType, Iterator>& rhs)
+    template <typename Functor, typename Iterator>
+    bool operator!=(const transform_iterator<Functor, Iterator>& lhs,
+                    const transform_iterator<Functor, Iterator>& rhs)
     {
         return !(lhs == rhs);
-    };
-}
+    }
 
-namespace std
-{
-    template <typename Functor, typename InputType, typename Iterator>
-    void swap(shino::transform_iterator<Functor, InputType, Iterator>& lhs,
-              shino::transform_iterator<Functor, InputType, Iterator>& rhs)
+    template <typename Functor, typename Iterator>
+    void swap(shino::transform_iterator<Functor, Iterator>& lhs,
+              shino::transform_iterator<Functor, Iterator>& rhs)
     {
         lhs.swap(rhs);
-    };
+    }
+
+    template <typename Functor, typename Iterator>
+    auto transformer(Functor&& f, Iterator&& iterator)
+    {
+        return transform_iterator<std::remove_const_t<std::remove_reference_t <Functor>>,
+                std::remove_const_t<std::remove_reference_t<Iterator>>>(std::forward<Functor>(f),
+                                                     std::forward<Iterator>(iterator));
+    }
 }
 
-
-
-#endif //SUNRISE_PREPROCESSING_ITERATOR_HPP
+#endif //SUNRISE_TRANSFORM_ITERATOR_HPP

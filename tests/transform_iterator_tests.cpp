@@ -19,9 +19,7 @@ void convert_strings_to_ints()
         return std::stoi(x);
     };
 
-    shino::transform_iterator<decltype(string_to_int),
-            std::string, std::vector<int>::iterator> conversion_iterator(string_to_int, output.begin());
-
+    auto conversion_iterator = shino::transformer(string_to_int, output.begin());
     std::copy(v.begin(), v.end(), conversion_iterator);
 
     std::cout << "Output after converting v to vector of ints\n";

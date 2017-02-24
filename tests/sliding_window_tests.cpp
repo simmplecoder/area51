@@ -3,30 +3,43 @@
 //
 
 #include "../src/sliding_window.hpp"
-#include "../src/preprocessing_iterator.hpp"
+#include "../src/transform_iterator.hpp"
 
-#include <functional>
 #include <vector>
 #include <iostream>
-#include <numeric>
+#include <utility>
 
 template <typename InputIt, typename OutputIt>
-void sliding_average(InputIt first, InputIt last,
-                    typename std::iterator_traits<InputIt>::difference_type window_length,
+std::pair<InputIt, OutputIt> sliding_average(InputIt first, InputIt last,
+                    const typename std::iterator_traits<InputIt>::difference_type window_length,
                     OutputIt d_first)
 {
     using value_type = typename std::iterator_traits<InputIt>::value_type;
-    auto divide = [](const value_type& value)
+    auto divide = [&window_length](const value_type& value)
     {
         return value / window_length;
     };
 
-    shino::preprocessing_iterator<decltype(divide), value_type, OutputIt> iterator(divide, d_first);
+    auto iterator = shino::transformer(divide, d_first); //transform_iterator<Functor, Iterator>
 
-    shino::sliding_window(first, last, iterator, window_length);
+    auto result = shino::sliding_window(first, last, iterator, window_length);
+
+    return std::make_pair(result.first, result.second.internal_iterator());
 }
 
 int main()
 {
+    constexpr int element_value = 2;
+    constexpr std::size_t size = 8;
+    constexpr std::size_t window_length = 4;
+    std::vector<int> v(size, element_value);
+    std::vector<double> output(size - window_length + 1);
 
+    sliding_average(v.begin(), v.end(), window_length, output.begin());
+
+    std::cout << "result: ";
+    for (const auto& elem: output)
+    {
+        std::cout << elem << ' ';
+    }
 }

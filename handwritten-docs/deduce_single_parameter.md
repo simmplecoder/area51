@@ -5,7 +5,7 @@ The struct serves as type deducing tool. It acts much like standard deducing fac
 ##Usage
 >Given (member) function pointer, deduce the single parameter that it takes as input and provide it as alias `::type` or `deduce_single_parameter_t<>` alias.
 
-As a result, it is not usable on overloaded or templated (member) function pointers. Type argument should be a function pointer, since there is no specialization for non pointer functions.
+As a result, it is not usable on overloaded or templated (member) function pointers, also even default arguments are not allowed. Type argument should be a function pointer, since there is no specialization for non pointer functions. 
 
 ##Examples:
 
