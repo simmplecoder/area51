@@ -19,7 +19,7 @@ namespace shino
         auto result = std::accumulate(first, last, initvalue);
 
         return result / distance;
-    };
+    }
 }
 
 #include "prime_numbers.hpp"

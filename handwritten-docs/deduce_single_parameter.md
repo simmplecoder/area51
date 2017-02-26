@@ -1,4 +1,4 @@
-#deduce_single_parameter<>
+#shino::deduce_single_parameter<>
 
 The struct serves as type deducing tool. It acts much like standard deducing facilities, in a way that it provides `::type` type alias, as well as `deduce_single_parameter_t<>` typedef for easier use.
 

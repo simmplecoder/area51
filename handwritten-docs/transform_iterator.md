@@ -1,4 +1,4 @@
-#transform_iterator<>
+#shino::transform_iterator<>
 
 The iterator is object version of the `std::transform<>()`. It stores a functor and underlying iterator.
 

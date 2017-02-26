@@ -14,7 +14,6 @@
 #include "iterator.hpp"
 
 namespace shino {
-    //TODO: reconsider return type of the join
     template<typename InputIt, typename Separator = std::string, typename Concluder = std::string>
     std::string join(InputIt first, InputIt last,
                      const Separator &separator,

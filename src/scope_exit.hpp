@@ -11,15 +11,15 @@
 namespace detail
 {
 	template <typename Func>
-	class ScopeGuardOnExit
+	class scope_exit_guard
 	{
 		Func f;
 	public:
-		ScopeGuardOnExit(Func&& f) :
+		scope_exit_guard(Func&& f) :
 			f(std::forward<Func>(f))
 		{}
 
-		~ScopeGuardOnExit() noexcept(false)
+		~scope_exit_guard() noexcept(noexcept(f()))
 		{
 			f();
 		}
@@ -28,7 +28,7 @@ namespace detail
 	struct dummy {};
 
 	template <typename Func>
-	ScopeGuardOnExit<Func> operator+(dummy, Func&& f)
+	scope_exit_guard<Func> operator+(dummy, Func&& f)
 	{
 		return std::forward<Func>(f);
 	}
@@ -36,7 +36,6 @@ namespace detail
 
 #define scope_exit \
 	auto ANONYMOUS_VARIABLE(SCOPE_EXIT_WHATEVER) = detail::dummy{} + [&]()
-
 #endif
 
 

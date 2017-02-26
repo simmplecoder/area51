@@ -16,7 +16,7 @@ namespace shino {
     template <typename T, typename Container = std::vector<T>>
     class circular_buffer
     {
-        container cont;
+        Container cont;
     public:
 
     };

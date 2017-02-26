@@ -49,7 +49,9 @@ struct copy_checker
 
     copy_checker(const copy_checker& other):
             copied(true)
-    {}
+    {
+        (void)other;
+    }
 };
 
 void copy_check()

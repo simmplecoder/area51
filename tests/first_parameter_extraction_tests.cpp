@@ -20,7 +20,10 @@ void f(char, int);
 
 int main()
 {
-    static_assert(std::is_same<deduce_first_parameter<decltype(f)>::type, char>::value);
-    static_assert(std::is_same<deduce_first_parameter<dummy>::type, dummy::correct_answer >::value);
-    static_assert(std::is_same<deduce_first_parameter<not_so_dummy>::type, not_so_dummy::correct_answer>::value);
+#define error_msg "deducing first parameter failed"
+    static_assert(std::is_same<deduce_first_parameter<decltype(f)>::type, char>::value, error_msg);
+    static_assert(std::is_same<deduce_first_parameter<dummy>::type, dummy::correct_answer >::value, error_msg);
+    static_assert(std::is_same<deduce_first_parameter<not_so_dummy>::type, not_so_dummy::correct_answer>::value,
+                  error_msg);
+#undef error_msg
 }

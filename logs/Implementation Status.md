@@ -77,6 +77,16 @@ Every function, class, or any other code should get through here before being me
    Tests are very thorough and cover every possible usage vector of `scope_exit`.
     
    - <h4>Documentation: <font color="green">good</font></h4>
+   
+##stumbled_iterator
+
+   - <h4>Conformance: <font color="green">maximum</font></h4>
+   
+   - <h4>Tests: <font color = "green">great</font></h4>
+   
+   - <h4>Documentation: <font color = "green">good</font> </h4>
+   
+Candidate for removal.
   
 ##Future plans
 

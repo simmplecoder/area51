@@ -26,6 +26,7 @@ public:
     session(Func&& f) :
             function(std::move(f)) {}
 
+#pragma optimize
     template<class ... Args>
     void measure(Args &&... args) {
         auto start = std::chrono::high_resolution_clock::now();

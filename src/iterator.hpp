@@ -1,43 +1,63 @@
-//
-// Created by olzhas on 11/12/16.
-//
-
 #ifndef CUSTOM_LIBRARY_ITERATOR_HPP
 #define CUSTOM_LIBRARY_ITERATOR_HPP
 
+#include <experimental/optional>
 #include <iterator>
 
 namespace shino {
     template<typename T>
     class stumbled_iterator : public std::iterator<std::input_iterator_tag, T>
     {
-        const T value;
-        std::size_t size;
+        std::experimental::optional<const T> value;
+        std::size_t count;
     public:
-        stumbled_iterator(const T &val, std::size_t size_) :
+        stumbled_iterator(const T &val, std::size_t count_) :
                 value(val),
-                size(size_)
+                count(count_)
         {}
 
-        stumbled_iterator(T&& val, std::size_t size_):
+        stumbled_iterator(T&& val, std::size_t count_):
                 value(val),
-                size(size_)
-        {
+                count(count_)
+        {}
 
-        }
+        stumbled_iterator() :
+                count(0)
+        {}
 
         stumbled_iterator &operator++() {
+            --count;
             return *this;
         }
 
         stumbled_iterator operator++(int) {
-            return *this;
+            auto copy = *this;
+            --count;
+            return copy;
         }
 
         const T& operator*() {
-            return value;
+            return *value;
         }
+
+        template <typename U>
+        friend bool operator==(const stumbled_iterator<U>& lhs, const stumbled_iterator<U>& rhs);
     };
+
+    template <>
+    class stumbled_iterator<void> {};
+
+    template <typename T>
+    bool operator==(const stumbled_iterator<T>& lhs, const stumbled_iterator<T>& rhs)
+    {
+        return lhs.count == rhs.count;
+    }
+
+    template <typename T>
+    bool operator!=(const stumbled_iterator<T>& lhs, const stumbled_iterator<T>& rhs)
+    {
+        return !(lhs == rhs);
+    }
 
     template <typename Container, typename T = typename Container::value_type>
     class append_iterator : public std::iterator<std::output_iterator_tag, typename Container::value_type>

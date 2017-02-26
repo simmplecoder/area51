@@ -1,4 +1,4 @@
-#sliding_window<>()
+#shino::sliding_window<>()
 
 The function implements generic sliding window with linear time complexity.
 

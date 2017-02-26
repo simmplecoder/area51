@@ -6,7 +6,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic-errors -std=c++1
 set(SOURCE_FILES
         src/timing_session.hpp
         src/fast_find.hpp
-        src/main.cpp
         src/random_engine.hpp
         src/scope_exit.hpp
         src/custom_mpl.hpp
@@ -29,10 +28,10 @@ set(SOURCE_FILES
         src/sliding_window.cpp
         src/member_callback.hpp)
 
-add_executable(area51 ${SOURCE_FILES})
 add_executable(sliding_window_tests tests/sliding_window_tests.cpp src/sliding_window.hpp)
 add_executable(first_parameter_extraction_tests tests/first_parameter_extraction_tests.cpp)
 add_executable(transform_iterator_tests tests/transform_iterator_tests.cpp)
 add_executable(deduce_single_parameter_tests tests/deduce_single_parameter_tests.cpp)
 add_executable(numerical_tests tests/numerical_tests.cpp)
 add_executable(scope_exit_tests tests/scope_exit_tests.cpp)
+add_executable(stumbled_iterator_tests tests/stumbled_iterators_test.cpp)
