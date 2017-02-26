@@ -82,7 +82,7 @@ namespace shino {
                 l = i,  r = i+z[i]-1;
             }
             return z;
-    };
+    }
 
     template <typename charT, typename char_traits = std::char_traits<charT>, class Allocator = std::allocator<charT>>
     std::basic_string<charT, char_traits, Allocator>
@@ -103,15 +103,14 @@ namespace shino {
         {
             return (in * (n - 1)) + in;
         }
-    };
+    }
 
     template <typename charT, typename char_traits = std::char_traits<charT>, class Allocator = std::allocator<charT>>
     std::basic_string<charT, char_traits, Allocator>
     operator*(std::size_t n, const std::basic_string<charT, char_traits, Allocator>& in)
     {
-        //we don't care about the value, just get something
         return in * n;
-    };
+    }
 }
 
 

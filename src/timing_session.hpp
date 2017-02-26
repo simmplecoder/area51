@@ -37,7 +37,7 @@ public:
     }
 
     //writes into the range until either exhausts it or timings vector is exhausted
-    template<typename Unit, typename OutputIt>
+    template<typename Unit = std::chrono::milliseconds, typename OutputIt>
     void get_as(OutputIt first, OutputIt last) {
         auto it = timings.begin();
         for (; it != timings.end() && first != last;

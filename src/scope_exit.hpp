@@ -6,11 +6,7 @@
 #define concat_impl(x, y) x##y
 #define concat(x, y) concat_impl(x, y)
 
-#ifdef __COUNTER__
-#define ANONYMOUS_VARIABLE(NAME) concat(NAME, __COUNTER__)
-#else
 #define ANONYMOUS_VARIABLE(NAME) concat(NAME, __LINE__)
-#endif
 
 namespace detail
 {
@@ -23,7 +19,7 @@ namespace detail
 			f(std::forward<Func>(f))
 		{}
 
-		~ScopeGuardOnExit()
+		~ScopeGuardOnExit() noexcept(false)
 		{
 			f();
 		}
@@ -39,7 +35,7 @@ namespace detail
 }
 
 #define scope_exit \
-	auto ANONYMOUS_VARIABLE(SCOPE_EXIT_WHATEVER) = ::detail::dummy() + [&]()
+	auto ANONYMOUS_VARIABLE(SCOPE_EXIT_WHATEVER) = detail::dummy{} + [&]()
 
 #endif
 

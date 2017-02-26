@@ -9,8 +9,6 @@ Every function, class, or any other code should get through here before being me
  - Documentation
  
  <h2>Template:</h2>
- 
-  - <h4>Specification: </h4>
   
   - <h4>Code Review: </h4>
  
@@ -60,6 +58,23 @@ Every function, class, or any other code should get through here before being me
    - <h4>Conformance: <font color="green">full</font></h4>
    
    - <h4>Tests: <font color="green">good</font>, but could be better</h4>
+    
+   - <h4>Documentation: <font color="green">good</font></h4>
+   
+##scope_exit
+   
+   - <h4>Code Review: </h4>
+   
+   [scope_exit macro](http://codereview.stackexchange.com/questions/145801/scope-exit-macro)
+  
+   - <h4>Conformance: <font color="green">great</font></h4>
+   
+   The `__LINE__` macro could be replaced by `__COUNTER__`, but for some reason
+   it seems like `__COUNTER__` does not expand multiple times to something different.
+   
+   - <h4>Tests: <font color = "green">great</font></h4>
+   
+   Tests are very thorough and cover every possible usage vector of `scope_exit`.
     
    - <h4>Documentation: <font color="green">good</font></h4>
   

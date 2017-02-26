@@ -11,22 +11,31 @@ namespace shino {
     template<typename T>
     class stumbled_iterator : public std::iterator<std::input_iterator_tag, T>
     {
-        const T &reference;
+        const T value;
+        std::size_t size;
     public:
-        using iterator_category = std::input_iterator_tag;
-        stumbled_iterator(const T &reference_) :
-                reference(reference_) {}
+        stumbled_iterator(const T &val, std::size_t size_) :
+                value(val),
+                size(size_)
+        {}
 
-        constexpr stumbled_iterator &operator++() {
+        stumbled_iterator(T&& val, std::size_t size_):
+                value(val),
+                size(size_)
+        {
+
+        }
+
+        stumbled_iterator &operator++() {
             return *this;
         }
 
-        constexpr stumbled_iterator operator++(int) {
+        stumbled_iterator operator++(int) {
             return *this;
         }
 
-        const T &operator*() {
-            return reference;
+        const T& operator*() {
+            return value;
         }
     };
 
