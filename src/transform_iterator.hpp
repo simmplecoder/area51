@@ -2,6 +2,7 @@
 #define SUNRISE_TRANSFORM_ITERATOR_HPP
 
 #include <iterator>
+#include <functional>
 
 namespace shino
 {
@@ -34,7 +35,7 @@ namespace shino
             template <typename U>
             proxy &operator=(U&& value)
             {
-                *iterator = f(std::forward<U>(value));
+                *iterator = std::__invoke(f, std::forward<U>(value));
                 return *this;
             }
 
@@ -110,5 +111,7 @@ namespace shino
                                                      std::forward<Iterator>(iterator));
     }
 }
+
+
 
 #endif //SUNRISE_TRANSFORM_ITERATOR_HPP

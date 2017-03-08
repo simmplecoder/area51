@@ -1,7 +1,3 @@
-//
-// Created by olzhas on 2/17/17.
-//
-
 #ifndef SUNRISE_SLIDING_WINDOW_HPP
 #define SUNRISE_SLIDING_WINDOW_HPP
 

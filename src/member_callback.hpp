@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SUNRISE_MEMBER_CALLBACK_HPP
+#define SUNRISE_MEMBER_CALLBACK_HPP
+
 #include <memory>
 #include <utility>
 
@@ -53,3 +55,5 @@ namespace shino
         }
     };
 }
+
+#endif //SUNRISE_MEMBER_CALLBACK_HPP

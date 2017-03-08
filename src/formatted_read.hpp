@@ -1,7 +1,3 @@
-//
-// Created by olzhas on 11/12/16.
-//
-
 #ifndef CUSTOM_LIBRARY_TS_SCANF_HPP
 #define CUSTOM_LIBRARY_TS_SCANF_HPP
 

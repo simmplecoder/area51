@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.6)
 project(area51)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic-errors -std=c++1z")
-
 set(SOURCE_FILES
         src/timing_session.hpp
         src/fast_find.hpp
@@ -28,10 +26,17 @@ set(SOURCE_FILES
         src/sliding_window.cpp
         src/member_callback.hpp)
 
-add_executable(sliding_window_tests tests/sliding_window_tests.cpp src/sliding_window.hpp)
+add_executable(sliding_window_tests tests/sliding_window_tests.cpp)
 add_executable(first_parameter_extraction_tests tests/first_parameter_extraction_tests.cpp)
 add_executable(transform_iterator_tests tests/transform_iterator_tests.cpp)
 add_executable(deduce_single_parameter_tests tests/deduce_single_parameter_tests.cpp)
 add_executable(numerical_tests tests/numerical_tests.cpp)
 add_executable(scope_exit_tests tests/scope_exit_tests.cpp)
 add_executable(stumbled_iterator_tests tests/stumbled_iterators_test.cpp)
+add_executable(circular_buffer_tests tests/circular_buffer_tests.cpp)
+add_executable(tuple_exploder_tests tests/tuple_exploder_tests.cpp)
+add_executable(benchmark_tests tests/benchmark_tests.cpp)
+add_executable(regular_callable_tests tests/regular_callable_tests.cpp)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic-errors -std=c++1z")
+#target_link_libraries(transform_iterator_tests /home/olzhas/anaconda3/lib/libgcc_s.so.1 /lib/x86_64-linux-gnu/libc.so.6 /usr/local/lib/libc++.so /usr/local/lib/libc++.a)
