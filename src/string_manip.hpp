@@ -1,7 +1,3 @@
-//
-// Created by olzhas on 11/10/16.
-//
-
 #ifndef CUSTOM_LIBRARY_STRINGMANIP_HPP
 #define CUSTOM_LIBRARY_STRINGMANIP_HPP
 

@@ -1,7 +1,3 @@
-//
-// Created by olzhas on 11/11/16.
-//
-
 #ifndef CUSTOM_LIBRARY_NUMERICAL_HPP
 #define CUSTOM_LIBRARY_NUMERICAL_HPP
 

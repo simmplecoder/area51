@@ -1,6 +1,7 @@
 #include "../src/numerical.hpp"
 #include "../src/random_engine.hpp"
 #include <cassert>
+#include <iostream>
 
 constexpr std::size_t test_count = 1000;
 
@@ -49,4 +50,6 @@ void run_tests()
 int main()
 {
     run_tests();
+
+    std::cout << "It fracking works, motherfuckers!";
 }

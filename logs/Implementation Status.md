@@ -87,6 +87,16 @@ Every function, class, or any other code should get through here before being me
    - <h4>Documentation: <font color = "green">good</font> </h4>
    
 Candidate for removal.
+
+##benchmark
+
+  - <h4>Code Review: None yet</h4>
+ 
+  - <h4>Conformance: maximum</h4>
+  
+  - <h4>Tests: yes, user controlled</h4>
+   
+  - <h4>Documentation: none yet</h4>  
   
 ##Future plans
 

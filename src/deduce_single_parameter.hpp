@@ -1,7 +1,3 @@
-//
-// Created by olzhas on 2/21/17.
-//
-
 #ifndef SUNRISE_DEDUCE_SINGLE_PARAMETER_HPP
 #define SUNRISE_DEDUCE_SINGLE_PARAMETER_HPP
 

@@ -1,6 +1,3 @@
-//
-// Created by olzhas on 11/11/16.
-//
 #ifndef PRIME_NUMBERS_H
 #define PRIME_NUMBERS_H
 

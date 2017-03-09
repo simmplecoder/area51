@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <cassert>
+#include <functional>
 
 template <typename T = int>
 std::vector<T> generate_randomized_vector(std::size_t size)
