@@ -35,7 +35,7 @@ public:
 
 int main()
 {
-    auto session = benchmarker(generator(), functor(), "Copy and Multiply");
+    auto session = shino::benchmarker(generator(), functor(), "Copy and Multiply");
 
     for (std::size_t i = 10'000; i < 1'000'000; i += 100)
     {
@@ -43,7 +43,7 @@ int main()
     }
     auto results = session.get_as<std::chrono::microseconds>("Vector_size", "Microseconds");
 
-    benchmark_streamer streamer;
+    shino::benchmark_streamer streamer;
     streamer << results;
 
     streamer.save("benchmark.txt", "Copying vector");
