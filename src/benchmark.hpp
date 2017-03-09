@@ -29,27 +29,20 @@ namespace shino {
         xy_pairs<typename Generator::input_type, std::chrono::duration<double>> timings;
     public:
 
-
-        benchmarking_session(const std::string &benchname, Generator &&gen, Functor &&func) :
+        template <typename Gen, typename Func,
+                typename = std::enable_if_t<std::is_same_v<std::decay_t<Gen>, Generator>>,
+                typename = std::enable_if_t<std::is_same_v<std::decay_t<Func>, Functor>>>
+        benchmarking_session(const std::string& benchname, Gen&& gen, Func&& func):
                 name(benchname),
-                generator(gen),
-                functor(func) {}
+                generator(std::forward<Gen>(gen)),
+                functor(std::forward<Func>(func))
+        {}
 
-        benchmarking_session(const std::string &benchname, const Generator &gen, const Functor &func) :
-                name(benchname),
-                generator(gen),
-                functor(func) {}
-
-        void time_once(const typename Generator::input_type &&input) {
-            auto generated_input = generator(input);
-            auto start = std::chrono::high_resolution_clock::now();
-            functor();
-            auto end = std::chrono::high_resolution_clock::now();
-            timings.push_back(std::make_pair(input, end - start));
-        }
-
-        void time_once(const typename Generator::input_type &input) {
-            auto generated_input = generator(input);
+        template <typename InputType,
+                typename = std::enable_if_t<std::is_same_v<std::decay_t<InputType>, typename Generator::input_type>>>
+        void time_once(InputType&& input)
+        {
+            auto generated_input = generator(std::forward<InputType>(input));
             auto start = std::chrono::high_resolution_clock::now();
             functor(generated_input);
             auto end = std::chrono::high_resolution_clock::now();
@@ -77,7 +70,7 @@ namespace shino {
     };
 
     template<typename Generator, typename Functor>
-    auto benchmarker(Generator &&generator, Functor &&functor, const std::string &benchname) {
+    auto benchmarker(Generator&& generator, Functor&& functor, const std::string& benchname) {
         return benchmarking_session<std::remove_const_t<std::remove_reference_t<Generator>>,
                 std::remove_const_t<std::remove_reference_t<Functor>>>(benchname,
                                                                        std::forward<Generator>(generator),
