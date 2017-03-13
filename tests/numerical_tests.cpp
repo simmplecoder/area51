@@ -1,5 +1,6 @@
 #include "../src/numerical.hpp"
 #include "../src/random_engine.hpp"
+#include <cstddef>
 #include <cassert>
 #include <iostream>
 
@@ -50,6 +51,4 @@ void run_tests()
 int main()
 {
     run_tests();
-
-    std::cout << "It fracking works, motherfuckers!";
 }

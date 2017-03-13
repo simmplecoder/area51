@@ -36,5 +36,8 @@ add_executable(stumbled_iterator_tests tests/stumbled_iterators_test.cpp)
 add_executable(circular_buffer_tests tests/circular_buffer_tests.cpp)
 add_executable(benchmark_tests tests/benchmark_tests.cpp)
 add_executable(regular_callable_tests tests/regular_callable_tests.cpp)
+add_executable(most_frequent_tests tests/most_frequent_tests.cpp)
+add_executable(tuple_exploder tests/tuple_exploder_tests.cpp)
+add_executable(benchmark_v2_tests tests/benchmark_v2_tests.cpp)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem /usr/local/include/c++/v1 -stdlib=libc++ -lc++abi -Wall -Wextra -pedantic-errors -std=c++1z")

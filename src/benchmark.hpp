@@ -6,6 +6,7 @@
 #include <vector>
 #include <utility>
 #include "transform_iterator.hpp"
+#include "numerical.hpp"
 
 namespace shino {
     template<typename InputType, typename TimeUnit>
@@ -13,6 +14,7 @@ namespace shino {
         template<typename T, typename U>
         using xy_pairs = std::vector<std::pair<T, U>>;
 
+        std::string bench_name;
         std::string xlabel_text;
         std::string ylabel_text;
         xy_pairs<InputType, TimeUnit> results;
@@ -39,14 +41,25 @@ namespace shino {
         {}
 
         template <typename InputType,
-                typename = std::enable_if_t<std::is_same_v<std::decay_t<InputType>, typename Generator::input_type>>>
-        void time_once(InputType&& input)
+                typename = std::enable_if_t<std::is_same_v<std::decay_t<InputType>,
+                        typename Generator::input_type>>>
+        void time(InputType &&input, std::size_t runcount)
         {
+            std::vector<std::chrono::duration<double>> readings(runcount);
             auto generated_input = generator(std::forward<InputType>(input));
-            auto start = std::chrono::high_resolution_clock::now();
-            functor(generated_input);
-            auto end = std::chrono::high_resolution_clock::now();
-            timings.push_back(std::make_pair(input, end - start));
+            for (std::size_t i = 0; i < runcount; ++i)
+            {
+                auto start = std::chrono::high_resolution_clock::now();
+                functor(generated_input);
+                auto end = std::chrono::high_resolution_clock::now();
+                readings.push_back(end - start);
+            }
+
+            //lets hope that RVO will kick in
+            auto timing = std::make_pair(std::forward<InputType>(input),
+                                         shino::average(readings.begin(),
+                                                        readings.end()));
+            timings.push_back(timing);
         }
 
         template<typename Unit = std::chrono::milliseconds>
@@ -71,8 +84,8 @@ namespace shino {
 
     template<typename Generator, typename Functor>
     auto benchmarker(Generator&& generator, Functor&& functor, const std::string& benchname) {
-        return benchmarking_session<std::remove_const_t<std::remove_reference_t<Generator>>,
-                std::remove_const_t<std::remove_reference_t<Functor>>>(benchname,
+        return benchmarking_session<std::decay_t<Generator>,
+                std::decay_t<Functor>>(benchname,
                                                                        std::forward<Generator>(generator),
                                                                        std::forward<Functor>(functor));
         //NRVO will probably kick in

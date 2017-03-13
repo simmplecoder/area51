@@ -10,7 +10,7 @@
 
 namespace shino {
     class benchmark_streamer {
-        std::stringstream sstream;
+    std::stringstream sstream;
     public:
         void save(const std::string &filename, const std::string &benchname) {
             std::ofstream benchmarks_file(filename);
