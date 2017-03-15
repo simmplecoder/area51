@@ -6,40 +6,54 @@
 #include <iterator>
 #include <cstddef>
 
-template <typename ForwardIterator, typename Comparator = std::less<>>
-std::pair<ForwardIterator, std::size_t> most_frequent(ForwardIterator first,
-                                                      ForwardIterator last,
-                                                      Comparator comparator = {})
+namespace shino
 {
-    auto comp = [&comparator](const auto& lhs, const auto& rhs)
+    template<typename ForwardIterator, typename Comparator = std::less<>>
+    std::pair<ForwardIterator, std::size_t> most_frequent(ForwardIterator first,
+                                                          ForwardIterator last,
+                                                          Comparator comparator = {})
     {
-        return comparator(lhs.get(), rhs.get());
-    };
-
-    std::map<std::reference_wrapper<typename std::iterator_traits<ForwardIterator>::value_type>,
-            std::size_t, decltype(comp)> counts(comp);
-
-    std::size_t frequency = 0;
-    auto most_freq = first;
-    while (first != last)
-    {
-        std::size_t current = ++counts[*first];
-        if (current > frequency)
+        auto comp = [&comparator](const auto &lhs, const auto &rhs) {
+            return comparator(lhs.get(), rhs.get());
+        };
+        
+        std::map<std::reference_wrapper<typename std::iterator_traits<ForwardIterator>::value_type>,
+                std::size_t, decltype(comp)> counts(comp);
+        
+        std::size_t frequency = 0;
+        auto most_freq = first;
+        while (first != last)
         {
-            frequency = current;
-            most_freq = first;
+            std::size_t current = ++counts[*first];
+            if (current > frequency)
+            {
+                frequency = current;
+                most_freq = first;
+            }
+            
+            ++first;
         }
-
-        ++first;
+        
+        return std::make_pair(most_freq, frequency);
     }
-
-    return std::make_pair(most_freq, frequency);
+    
+    template <typename CharT = char, typename Allocator>
+    auto find_last_of(std::basic_string<CharT, Allocator>& s, const CharT& c)
+    {
+        for (auto i = s.length() - 1; i > 0; --i)
+        {
+            if (s[i] == c)
+            {
+                return i;
+            }
+        }
+        
+        if (s[0] == c)
+        {
+            return (std::size_t)0;
+        }
+        
+        return std::basic_string<CharT, Allocator>::npos;
+    }
 }
-
-//template <typename ForwardIterator>
-//std::pair<ForwardIterator, std::size_t> most_frequent(ForwardIterator first, ForwardIterator last)
-//{
-//    return most_frequent(first, last, std::less<>{});
-//}
-
 #endif //AREA51_ALGORITHM_HPP

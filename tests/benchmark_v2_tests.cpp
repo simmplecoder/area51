@@ -1,5 +1,4 @@
 #include "../src/benchmark_v2.hpp"
-#include <cstddef>
 #include <cmath>
 
 struct generator
@@ -65,22 +64,14 @@ int main()
         }
     };
 
-    auto gen = generator{};
-    std::apply(linear_pow_bench, gen(1));
-
     auto checked_bench = shino::benchmarker(generator{}, linear_pow_bench, bin_pow_bench);
-//    benchmark<generator, decltype(linear_pow_bench), decltype(bin_pow_bench)>
-//            checked_bench(gen, linear_pow_bench, bin_pow_bench);
-
-//    static_assert(std::is_same_v<decltype(bench),
-//            benchmark<generator, decltype(linear_pow_bench), decltype(bin_pow_bench)>>,
-//                  "benchmarker doesn't substitute types correctly");
 
     for (int i = 1; i < 20; ++i)
     {
         checked_bench.time(i, 10);
     }
 
-
+    checked_bench.save_as("./benchmarks/metafile.txt",
+                          {"./benchmarks/linear power results.txt", "./benchmarks/binary power results.txt"});
 }
 
