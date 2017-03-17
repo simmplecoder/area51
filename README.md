@@ -1,2 +1,2 @@
-# sunrise
-The library contains several components that are written by me in some point in time. Every piece of the code was crafted with love.
+# Area51
+The repository is a staging ground for the Sunrise library. All of the code in Sunrise first goes through this place where it gets considerably tested and documented.
