@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.6)
 project(area51)
 
+enable_testing()
+
 set(SOURCE_FILES
         src/timing_session.hpp
         src/fast_find.hpp
@@ -41,3 +43,5 @@ add_executable(tuple_exploder tests/tuple_exploder_tests.cpp)
 add_executable(benchmark_v2_tests tests/benchmark_v2_tests.cpp)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem /usr/local/include/c++/v1 -stdlib=libc++ -lc++abi -Wall -Wextra -pedantic-errors -std=c++1z")
+
+add_test(sliding-window-tests sliding_window_tests)

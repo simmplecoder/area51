@@ -22,6 +22,7 @@ namespace shino
         Generator gen;
         std::tuple<Callables...> callables;
         std::vector<std::array<std::chrono::duration<double>, sizeof...(Callables)>> timings;
+        std::vector<typename Generator::input_type> inputs;
     public:
         using input_type = typename Generator::input_type;
         static constexpr std::size_t function_count = sizeof...(Callables);
@@ -47,6 +48,7 @@ namespace shino
         void time(InputType &&input,
                   std::size_t runcount)
         {
+            inputs.push_back(input);
             time_all(std::make_index_sequence<sizeof...(Callables)>{},
                      std::forward<InputType>(input), runcount);
         }
@@ -75,21 +77,7 @@ namespace shino
         {
             std::vector<std::array<Unit, function_count>> converted_readings(timings.size());
             
-            auto converter = [](const auto &readings) {
-                std::array<Unit, function_count> converted_readings;
-                std::transform(readings.begin(),
-                               readings.end(),
-                               converted_readings.begin(),
-                               [](const auto &reading) {
-                                   return std::chrono::duration_cast<Unit>(reading);
-                               }
-                );
-            };
-            
-            auto converting_iterator = shino::transformer(converter,
-                                                          converted_readings.begin());
-            std::copy(timings.begin(), timings.end(), converting_iterator);
-            
+            get_as<Unit>(converted_readings.begin());
             return converted_readings;
         }
         
@@ -119,13 +107,14 @@ namespace shino
                 throw std::runtime_error("Couldn't write everything to meta file, but opened it.");
             }
             
-            for (const auto& filename : filenames)
+            for (std::size_t filenames_index = 0; filenames_index < filenames.size(); ++filenames_index)
             {
+                const auto& filename = filenames[filenames_index];
                 std::ofstream file(filename);
                 
                 if (!file.is_open())
                 {
-                   throw std::runtime_error("couldn't open one of the benchmark results file");
+                    throw std::runtime_error("couldn't open one of the benchmark results file");
                 }
                 
                 auto benchmark_name = filename;
@@ -134,13 +123,15 @@ namespace shino
                 
                 file << benchmark_name << '\n';
                 
-                for (const auto& reading: timings)
+                for (std::size_t timings_index = 0; timings_index < timings.size(); ++timings_index)
                 {
-                    for (const auto& result: reading)
-                    {
-                        file << std::chrono::duration_cast<Unit>(result).count() << ' ';
-                    }
-                    file << '\n';
+                    file << inputs[timings_index] << ' '
+                         << std::chrono::duration_cast<Unit>(timings[timings_index][filenames_index]).count() << '\n';
+                }
+                
+                if (!file.good())
+                {
+                    throw std::runtime_error("Could complete writing of " + filename);
                 }
             }
         }
