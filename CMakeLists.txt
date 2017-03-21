@@ -45,3 +45,5 @@ add_executable(benchmark_v2_tests tests/benchmark_v2_tests.cpp)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem /usr/local/include/c++/v1 -stdlib=libc++ -lc++abi -Wall -Wextra -pedantic-errors -std=c++1z")
 
 add_test(sliding-window-tests sliding_window_tests)
+add_test(stumbled-iterator-tests stumbled_iterator_tests)
+add_test(transform-iterator-tests transform_iterator_tests)

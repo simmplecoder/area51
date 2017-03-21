@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <cassert>
+#include <iostream>
 
 template <typename T = int>
 std::vector<T> generate_vector(std::size_t size)
@@ -46,7 +47,11 @@ void string_adding_test()
     shino::stumbled_iterator<std::string> first(value, 100);
     std::copy(first, shino::stumbled_iterator<std::string>{}, v.begin());
 
-    assert(v == correct_answer);
+    if (v == correct_answer)
+    {
+        std::cerr << "string adding test: answers don't match";
+        throw std::exception();
+    }
 }
 
 void run_tests()

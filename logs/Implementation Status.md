@@ -78,6 +78,11 @@ Every function, class, or any other code should get through here before being me
     
    - <h4>Documentation: <font color="green">good</font></h4>
    
+##enable_sfinae [small]
+
+  The code is too small to test. Documentation will be 
+  merged with a general header, probably
+   
 ##stumbled_iterator
 
    - <h4>Conformance: <font color="green">maximum</font></h4>
@@ -88,7 +93,7 @@ Every function, class, or any other code should get through here before being me
    
 Candidate for removal.
 
-##benchmark
+##benchmark [deprecated]
 
   - <h4>Code Review: None yet</h4>
  
