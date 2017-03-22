@@ -33,6 +33,7 @@ public:
 
 #include <algorithm>
 
+//code came from url : http://codereview.stackexchange.com/questions/157064/fast-quicksort-implementation
 template<class iterator>
 void quickSort(iterator begin, iterator end)
 {
