@@ -44,6 +44,12 @@ add_executable(benchmark_v2_tests tests/benchmark_v2_tests.cpp)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem /usr/local/include/c++/v1 -stdlib=libc++ -lc++abi -Wall -Wextra -pedantic-errors -std=c++1z")
 
+add_test(benchmark-v2-tests benchmark_v2_tests)
+add_test(circular-buffer-tests circular_buffer_tests)
+add_test(most-frequent-tests most_frequent_tests)
+add_test(numerical-tests numerical_tests)
+add_test(regular-callable-tests regular_callable_tests)
+add_test(scope-exit-tests scope_exit_tests)
 add_test(sliding-window-tests sliding_window_tests)
 add_test(stumbled-iterator-tests stumbled_iterator_tests)
 add_test(transform-iterator-tests transform_iterator_tests)

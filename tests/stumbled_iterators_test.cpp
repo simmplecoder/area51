@@ -47,9 +47,9 @@ void string_adding_test()
     shino::stumbled_iterator<std::string> first(value, 100);
     std::copy(first, shino::stumbled_iterator<std::string>{}, v.begin());
 
-    if (v == correct_answer)
+    if (v != correct_answer)
     {
-        std::cerr << "string adding test: answers don't match";
+        std::cerr << "string adding test: answers don't match\n";
         throw std::exception();
     }
 }

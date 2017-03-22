@@ -29,6 +29,8 @@ Every function, class, or any other code should get through here before being me
  - <h4> Documentation: <font color="green">good</font></h4>
  
    Documentation provides solid start for users.
+   
+   <font color="red">TODO: try to issue warning on narrowing conversions.</font>
  
  ##transform_iterator
     
@@ -90,8 +92,6 @@ Every function, class, or any other code should get through here before being me
    - <h4>Tests: <font color = "green">great</font></h4>
    
    - <h4>Documentation: <font color = "green">good</font> </h4>
-   
-Candidate for removal.
 
 ##benchmark [deprecated]
 

@@ -35,7 +35,7 @@ std::pair<InputIt, OutputIt> sliding_average(InputIt first, InputIt last,
 template <typename T>
 std::vector<T> slow_sliding_average(const std::vector<T>& input, std::size_t window_length)
 {
-    auto head = std::next(input.begin(), window_length);
+    auto head = std::next(input.begin(), static_cast<int>(window_length)); //intentional cast
     auto tail = input.begin();
 
     std::vector<T> output(input.size() - window_length + 1);
@@ -63,22 +63,27 @@ std::vector<T> generate_vector(std::size_t size)
 
 void sliding_average_test(std::size_t size, std::size_t window_length)
 {
-    if (size >= window_length)
+    if (size < window_length)
     {
         std::cerr << "Generator is working incorrectly: "
                 "window length matches or exceeds "
-                "size of the vector";
+                "size of the vector\n";
+        throw std::exception();
     }
+    
     auto input = generate_vector(size);
 
     auto slow_sliding_average_result = slow_sliding_average(input, window_length);
 
     std::vector<int> sliding_average_result(input.size() - window_length + 1);
-    sliding_average(input.begin(), input.end(), window_length, sliding_average_result.begin());
+    using difference_type = std::iterator_traits<std::vector<int>::iterator>::difference_type;
+    sliding_average(input.begin(), input.end(), static_cast<difference_type>(window_length), sliding_average_result.begin());
 
-    if (sliding_average_result == slow_sliding_average_result)
+    if (sliding_average_result != slow_sliding_average_result)
     {
-        
+        std::cerr << "sliding average test: answers from slow and usual version "
+                  "don't match\n";
+        throw std::exception();
     }
 }
 

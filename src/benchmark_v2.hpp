@@ -90,7 +90,8 @@ namespace shino
             std::ofstream metafile(metafilename);
             if (!metafile.is_open())
             {
-                throw std::runtime_error("Couldn't create meta file");
+                throw std::runtime_error("Couldn't create meta file. Does the folders in the path exist? "
+                                                 "Library can't create folders for you if they don't exist");
             }
             
             metafile << xlabel << '\n';

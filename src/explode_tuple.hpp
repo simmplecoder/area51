@@ -25,12 +25,6 @@ namespace shino
     {
         return detail::apply(std::forward<Functor>(functor), std::forward<Tuple>(tup), seq);
     }
-    
-//    template <typename Functor, typename T, typename = std::enable_if_t<!shino::is_tuple_like<T>::value, T> >
-//    auto apply(Functor&& functor, T&& value)
-//    {
-//        return std::invoke(std::forward<Functor>(functor), std::forward<T>(value));
-//    }
 }
 
 #endif //AREA51_TUPLE_EXPLODER_HPP

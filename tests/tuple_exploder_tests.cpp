@@ -10,13 +10,6 @@ int func(int, char, std::string&)
     return 0;
 }
 
-template <int ... Nums>
-void push_back(std::vector<int>& v)
-{
-    std::vector<int> temp{Nums...};
-    v.insert(v.end(), temp.begin(), temp.end());
-}
-
 int add(int x, int y)
 {
     return x + y;
