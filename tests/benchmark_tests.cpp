@@ -35,11 +35,12 @@ public:
 
 int main()
 {
-    auto session = shino::benchmarker(generator(), functor(), "Copy and Multiply");
+    auto session = shino::benchmarker(generator{}, functor{}, "Copy and Multiply");
 
     for (std::size_t i = 10'000; i < 1'000'000; i += 100)
     {
-        session.time_once(i);
+        constexpr std::size_t runcount = 5;
+        session.time(i, runcount);
     }
     auto results = session.get_as<std::chrono::microseconds>("Vector_size", "Microseconds");
 

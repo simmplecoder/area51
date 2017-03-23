@@ -6,6 +6,7 @@
 #include <vector>
 #include <utility>
 #include "transform_iterator.hpp"
+#include "numerical.hpp"
 
 namespace shino {
     template<typename InputType, typename TimeUnit>
@@ -13,6 +14,7 @@ namespace shino {
         template<typename T, typename U>
         using xy_pairs = std::vector<std::pair<T, U>>;
 
+        std::string bench_name;
         std::string xlabel_text;
         std::string ylabel_text;
         xy_pairs<InputType, TimeUnit> results;
@@ -29,31 +31,35 @@ namespace shino {
         xy_pairs<typename Generator::input_type, std::chrono::duration<double>> timings;
     public:
 
-
-        benchmarking_session(const std::string &benchname, Generator &&gen, Functor &&func) :
+        template <typename Gen, typename Func,
+                typename = std::enable_if_t<std::is_same_v<std::decay_t<Gen>, Generator>>,
+                typename = std::enable_if_t<std::is_same_v<std::decay_t<Func>, Functor>>>
+        benchmarking_session(const std::string& benchname, Gen&& gen, Func&& func):
                 name(benchname),
-                generator(gen),
-                functor(func) {}
+                generator(std::forward<Gen>(gen)),
+                functor(std::forward<Func>(func))
+        {}
 
-        benchmarking_session(const std::string &benchname, const Generator &gen, const Functor &func) :
-                name(benchname),
-                generator(gen),
-                functor(func) {}
+        template <typename InputType,
+                typename = std::enable_if_t<std::is_same_v<std::decay_t<InputType>,
+                        typename Generator::input_type>>>
+        void time(InputType &&input, std::size_t runcount)
+        {
+            std::vector<std::chrono::duration<double>> readings(runcount);
+            auto generated_input = generator(std::forward<InputType>(input));
+            for (std::size_t i = 0; i < runcount; ++i)
+            {
+                auto start = std::chrono::high_resolution_clock::now();
+                functor(generated_input);
+                auto end = std::chrono::high_resolution_clock::now();
+                readings.push_back(end - start);
+            }
 
-        void time_once(const typename Generator::input_type &&input) {
-            auto generated_input = generator(input);
-            auto start = std::chrono::high_resolution_clock::now();
-            functor();
-            auto end = std::chrono::high_resolution_clock::now();
-            timings.push_back(std::make_pair(input, end - start));
-        }
-
-        void time_once(const typename Generator::input_type &input) {
-            auto generated_input = generator(input);
-            auto start = std::chrono::high_resolution_clock::now();
-            functor(generated_input);
-            auto end = std::chrono::high_resolution_clock::now();
-            timings.push_back(std::make_pair(input, end - start));
+            //lets hope that RVO will kick in
+            auto timing = std::make_pair(std::forward<InputType>(input),
+                                         shino::average(readings.begin(),
+                                                        readings.end()));
+            timings.push_back(timing);
         }
 
         template<typename Unit = std::chrono::milliseconds>
@@ -77,9 +83,9 @@ namespace shino {
     };
 
     template<typename Generator, typename Functor>
-    auto benchmarker(Generator &&generator, Functor &&functor, const std::string &benchname) {
-        return benchmarking_session<std::remove_const_t<std::remove_reference_t<Generator>>,
-                std::remove_const_t<std::remove_reference_t<Functor>>>(benchname,
+    auto benchmarker(Generator&& generator, Functor&& functor, const std::string& benchname) {
+        return benchmarking_session<std::decay_t<Generator>,
+                std::decay_t<Functor>>(benchname,
                                                                        std::forward<Generator>(generator),
                                                                        std::forward<Functor>(functor));
         //NRVO will probably kick in

@@ -11,6 +11,7 @@
 #include <cstddef>
 #include <cassert>
 #include <functional>
+#include <iostream>
 
 template <typename T = int>
 std::vector<T> generate_randomized_vector(std::size_t size)
@@ -43,7 +44,11 @@ void multiplication_test(const std::vector<T>& input)
     std::copy(input.begin(), input.end(),
               shino::transformer(multiply_by_two, transformation_result.begin()));
 
-    assert(correct_answer == transformation_result);
+    if (correct_answer != transformation_result)
+    {
+        std::cerr << "multiplication test: answers didn't match\n";
+        throw std::exception();
+    }
 }
 
 template <typename T>
@@ -65,7 +70,11 @@ void stringify_test(const std::vector<T>& input)
                                  },
                                  transformation_result.begin()));
 
-    assert(correct_answer == transformation_result);
+    if (correct_answer != transformation_result)
+    {
+        std::cerr << "stringify test: answers didn't match\n";
+        throw std::exception();
+    }
 }
 
 void run_tests()

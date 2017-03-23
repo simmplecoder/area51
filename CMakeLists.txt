@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.6)
 project(area51)
 
+enable_testing()
+
 set(SOURCE_FILES
         src/timing_session.hpp
         src/fast_find.hpp
@@ -34,9 +36,19 @@ add_executable(numerical_tests tests/numerical_tests.cpp)
 add_executable(scope_exit_tests tests/scope_exit_tests.cpp)
 add_executable(stumbled_iterator_tests tests/stumbled_iterators_test.cpp)
 add_executable(circular_buffer_tests tests/circular_buffer_tests.cpp)
-add_executable(tuple_exploder_tests tests/tuple_exploder_tests.cpp)
 add_executable(benchmark_tests tests/benchmark_tests.cpp)
 add_executable(regular_callable_tests tests/regular_callable_tests.cpp)
+add_executable(most_frequent_tests tests/most_frequent_tests.cpp)
+add_executable(tuple_exploder tests/tuple_exploder_tests.cpp)
+add_executable(benchmark_v2_tests tests/benchmark_v2_tests.cpp)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem /usr/local/include/c++/v1 -stdlib=libc++ -lc++abi -Wall -Wextra -pedantic-errors -std=c++1z")
-#target_link_libraries(transform_iterator_tests /home/olzhas/anaconda3/lib/libgcc_s.so.1 /lib/x86_64-linux-gnu/libc.so.6 /usr/local/lib/libc++.so /usr/local/lib/libc++.a)
+
+add_test(circular-buffer-tests circular_buffer_tests)
+add_test(most-frequent-tests most_frequent_tests)
+add_test(numerical-tests numerical_tests)
+add_test(regular-callable-tests regular_callable_tests)
+add_test(scope-exit-tests scope_exit_tests)
+add_test(sliding-window-tests sliding_window_tests)
+add_test(stumbled-iterator-tests stumbled_iterator_tests)
+add_test(transform-iterator-tests transform_iterator_tests)

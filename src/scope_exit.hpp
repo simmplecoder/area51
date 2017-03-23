@@ -15,8 +15,8 @@ namespace detail
 	{
 		Func f;
 	public:
-		scope_exit_guard(Func&& f) :
-			f(std::forward<Func>(f))
+		scope_exit_guard(Func&& func) :
+			f(std::forward<Func>(func))
 		{}
 
 		~scope_exit_guard() noexcept(noexcept(f()))
