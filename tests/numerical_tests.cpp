@@ -35,7 +35,11 @@ void test(std::size_t size)
     auto handwritten_result  = handwritten_average(v, 0.0);
     auto result = shino::average(v.begin(), v.end(), 0.0);
 
-    assert(handwritten_result == result);
+    if (handwritten_result != result)
+    {
+        std::cerr << "handwritten average and shino::average don't agree\n";
+        throw std::exception();
+    }
 }
 
 void run_tests()

@@ -2,6 +2,7 @@
 #include "../src/random_engine.hpp"
 #include <cassert>
 #include <type_traits>
+#include <iostream>
 
 void manipulate_counter(int &counter)
 {
@@ -36,8 +37,11 @@ void counter_test(int count)
         manipulate_counter(counter);
     }
 
-    assert(counter == count * 2);
-    counter = 0;
+    if (counter != count * 2)
+    {
+        std::cerr << "one or more scope_exit's are not triggering correctly\n";
+        throw std::exception();
+    }
 }
 
 struct copy_checker
@@ -60,7 +64,11 @@ void copy_check()
 
     scope_exit
     {
-        assert(!checker.copied); //triggering this means that lambda captures by copy
+        if (checker.copied)
+        {
+            std::cerr << "scope_exit copies variables from outside scope\n";
+            throw std::exception();
+        }
     };
 }
 

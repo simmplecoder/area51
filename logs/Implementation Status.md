@@ -29,6 +29,8 @@ Every function, class, or any other code should get through here before being me
  - <h4> Documentation: <font color="green">good</font></h4>
  
    Documentation provides solid start for users.
+   
+   <font color="red">TODO: try to issue warning on narrowing conversions.</font>
  
  ##transform_iterator
     
@@ -78,6 +80,11 @@ Every function, class, or any other code should get through here before being me
     
    - <h4>Documentation: <font color="green">good</font></h4>
    
+##enable_sfinae [small]
+
+  The code is too small to test. Documentation will be 
+  merged with a general header, probably
+   
 ##stumbled_iterator
 
    - <h4>Conformance: <font color="green">maximum</font></h4>
@@ -85,10 +92,8 @@ Every function, class, or any other code should get through here before being me
    - <h4>Tests: <font color = "green">great</font></h4>
    
    - <h4>Documentation: <font color = "green">good</font> </h4>
-   
-Candidate for removal.
 
-##benchmark
+##benchmark [deprecated]
 
   - <h4>Code Review: None yet</h4>
  

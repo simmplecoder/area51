@@ -4,6 +4,7 @@
 #include <cassert>
 #include <utility>
 #include <type_traits>
+#include <iostream>
 
 int func0(const std::string&);
 void func1(int);
@@ -30,5 +31,7 @@ int main()
     static_assert(std::is_same<deduce_single_parameter_t<decltype(&dummy_struct::get_lazy)>,
             std::string>::value, error_msg);
 #undef error_msg
+    
+    std::cerr << "test doesn't have runtime component. If it build correctly, it passed\n";
 }
 

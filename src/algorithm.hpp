@@ -50,7 +50,7 @@ namespace shino
         
         if (s[0] == c)
         {
-            return (std::size_t)0;
+            return static_cast<std::size_t>(0);
         }
         
         return std::basic_string<CharT, Allocator>::npos;

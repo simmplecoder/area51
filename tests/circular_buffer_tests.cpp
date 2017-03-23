@@ -9,16 +9,32 @@ void emplace_tests()
     for (std::size_t i = 0; i < 15; ++i)
     {
         buffer.emplace(i);
+        if (i < 10)
+        {
+            if (buffer[i] != i)
+            {
+                std::cerr << "emplace_tests: emplace doesn't work correctly\n";
+                throw std::exception();
+            }
+        }
     }
 
     for (std::size_t i = 0; i < 5; ++i)
     {
-        assert(buffer[i] == i + 10);
+        if (buffer[i] != i + 10)
+        {
+            std::cerr << "emplace tests: emplacing after overflow doesn't work correctly\n";
+            throw std::exception();
+        }
     }
 
     for (std::size_t i = 5; i < 10; ++i)
     {
-        assert(buffer[i] == i);
+        if (buffer[i] != i)
+        {
+            std::cerr << "emplace tests: non overflowing part doesn't contain correct values\n";
+            throw std::exception();
+        }
     }
 }
 
@@ -49,7 +65,10 @@ void pop_tests()
 
     for (std::size_t i= 3; i < 5; ++i)
     {
-        assert(buffer[i] == i);
+        if (buffer[i] != i)
+        {
+            
+        }
     }
 
     for (std::size_t i = 5; i < 10; ++i)

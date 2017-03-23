@@ -45,9 +45,9 @@ namespace shino {
             }
 
         private:
-            proxy(Iterator &it, regular_callable_t <Functor> &functor) :
+            proxy(Iterator &it, regular_callable_t <Functor> &proxy_functor) :
                     iterator(it),
-                    f(functor) {}
+                    f(proxy_functor) {}
         };
 
         proxy operator*() {
