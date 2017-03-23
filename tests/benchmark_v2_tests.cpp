@@ -133,7 +133,7 @@ int main()
 
     auto checked_bench = shino::benchmarker(generator{}, quicksort_bench, stdsort_bench);
 
-    for (std::size_t i = 1000; i <= 1'000'000; i += 100)
+    for (std::size_t i = 1000; i <= 100'000; i += 100)
     {
         checked_bench.time(i, 3); //3 means runcount for the same dataset
     }
