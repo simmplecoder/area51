@@ -22,7 +22,7 @@ and any text one desires. The number sign will have its effect until next line.
 Variable manipulation happens through applying operators on declared variables. Currently, it supports
  only assigning a value, or an array of values.
  
- ###Value
+ ### Value
 
  A value is a sequence of any visible non whitespace characters. Separation occurs on any whitespace.
  
@@ -41,6 +41,11 @@ Variable manipulation happens through applying operators on declared variables. 
  
  Assigning an array of values happens when a **Variable** is standing on the left hand side of 
  operator equals (`=`), followed by opening square brace (leading whitespaces allowed), followed by
- any number of **Value**s, each of which end with comma character (`,`). Ending sequence of values
+ any number of **Value**s, each of which end with comma character (`,`). Sequence can be ending with 
+ comma. Ending sequence of values
  happens through putting closing square bracket (`]`).
 
+ **Examples:**
+ 
+    CoreCount = [1, 2, 3, 5,]
+    SourceFiles = [metafile.txt, benchmark.txt, analyzer.txt]
