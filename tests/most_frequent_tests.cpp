@@ -1,5 +1,5 @@
 #include "../src/algorithm.hpp"
-#include "../src/random_engine.hpp"
+#include "../src/random_int_generator.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>

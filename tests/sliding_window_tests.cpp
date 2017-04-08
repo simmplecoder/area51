@@ -4,7 +4,7 @@
 
 #include "../src/sliding_window.hpp"
 #include "../src/transform_iterator.hpp"
-#include "../src/random_engine.hpp"
+#include "../src/random_int_generator.hpp"
 #include "../src/numerical.hpp"
 
 #include <vector>

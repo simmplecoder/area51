@@ -1,5 +1,5 @@
 #include "../src/scope_exit.hpp"
-#include "../src/random_engine.hpp"
+#include "../src/random_int_generator.hpp"
 #include <cassert>
 #include <type_traits>
 #include <iostream>

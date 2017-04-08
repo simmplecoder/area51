@@ -1,5 +1,5 @@
 #include "../src/iterator.hpp"
-#include "../src/random_engine.hpp"
+#include "../src/random_int_generator.hpp"
 #include <vector>
 #include <string>
 #include <cassert>
