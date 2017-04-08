@@ -1,5 +1,5 @@
 #include "../src/numerical.hpp"
-#include "../src/random_engine.hpp"
+#include "../src/random_int_generator.hpp"
 #include <cstddef>
 #include <cassert>
 #include <iostream>

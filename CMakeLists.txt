@@ -6,7 +6,7 @@ enable_testing()
 set(SOURCE_FILES
         src/timing_session.hpp
         src/fast_find.hpp
-        src/random_engine.hpp
+        src/random_int_generator.hpp
         src/scope_exit.hpp
         src/custom_mpl.hpp
         src/typelist.hpp
@@ -28,6 +28,7 @@ set(SOURCE_FILES
         src/sliding_window.cpp
         src/member_callback.hpp)
 
+#tests
 add_executable(sliding_window_tests tests/sliding_window_tests.cpp)
 add_executable(first_parameter_extraction_tests tests/first_parameter_extraction_tests.cpp)
 add_executable(transform_iterator_tests tests/transform_iterator_tests.cpp)
@@ -41,6 +42,9 @@ add_executable(regular_callable_tests tests/regular_callable_tests.cpp)
 add_executable(most_frequent_tests tests/most_frequent_tests.cpp)
 add_executable(tuple_exploder tests/tuple_exploder_tests.cpp)
 add_executable(benchmark_v2_tests tests/benchmark_v2_tests.cpp)
+
+#demos
+add_executable(random_int_generator_demo demos/random_int_generator_demo.cpp)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem /usr/local/include/c++/v1 -stdlib=libc++ -lc++abi -Wall -Wextra -pedantic-errors -std=c++1z")
 

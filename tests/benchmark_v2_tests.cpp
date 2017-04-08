@@ -1,17 +1,19 @@
 #include "../src/benchmark_v2.hpp"
-#include "../src/random_engine.hpp"
+#include "../src/random_int_generator.hpp"
 #include <cmath>
 #include <iostream>
 #include <memory>
 
 class generator
 {
-    std::unique_ptr<shino::random_int_generator<int, std::mt19937_64>> gen;
+//    std::unique_ptr<shino::random_int_generator<int, std::mt19937_64>> gen;
+    shino::random_int_generator<int, std::mt19937_64> gen;
 public:
     using input_type = std::size_t;
     
     generator():
-            gen(std::make_unique<shino::random_int_generator<int, std::mt19937_64>>(0, 100'000))
+//            gen(std::make_unique<shino::random_int_generator<int, std::mt19937_64>>(0, 100'000))
+            gen(0, 100'000)
     {}
     
     generator(generator&& other):
@@ -24,10 +26,10 @@ public:
         if (v.size() != input)
         {
             v.resize(input);
-            (*gen)(v.begin(), v.end());
+            (gen)(v.begin(), v.end());
         }
         
-        return v;
+        return std::make_tuple(v);
     }
 };
 
@@ -133,7 +135,7 @@ int main()
 
     auto checked_bench = shino::benchmarker(generator{}, quicksort_bench, stdsort_bench);
 
-    for (std::size_t i = 1000; i <= 100'000; i += 100)
+    for (std::size_t i = 1000; i <= 50'000; i += 100)
     {
         checked_bench.time(i, 3); //3 means runcount for the same dataset
     }
