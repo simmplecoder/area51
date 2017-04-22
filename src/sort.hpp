@@ -33,6 +33,25 @@ namespace shino
             }
         }
     }
+    
+    template <typename RandomAccessIt, typename Compare = std::less<>>
+    void insertion_sort(RandomAccessIt first, RandomAccessIt last, Compare cmp = {})
+    {
+        if (std::distance(first, last) < 2)
+        {
+            return;
+        }
+        
+        for (auto i = std::next(first); i != last; ++i)
+        {
+            auto j = i;
+            while (std::prev(j) != first && !cmp(*std::prev(j), *j))
+            {
+                std::iter_swap(std::prev(j), j);
+                --j;
+            }
+        }
+    }
 }
 
 

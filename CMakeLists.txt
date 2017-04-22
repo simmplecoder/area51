@@ -47,6 +47,7 @@ add_executable(benchmark_v2_tests tests/benchmark_v2_tests.cpp)
 add_executable(random_int_generator_demo demos/random_int_generator_demo.cpp)
 add_executable(random_selector_demo demos/random_selector_demo.cpp)
 add_executable(bubble_sort_demo demos/bubble_sort_demo.cpp)
+add_executable(insertion_sort_demo demos/insertion_sort_demo.cpp)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem /usr/local/include/c++/v1 -stdlib=libc++ -lc++abi -Wall -Wextra -pedantic-errors -std=c++1z")
 
