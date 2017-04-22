@@ -22,8 +22,8 @@ namespace shino
             {
                 if (!cmp(*j, *std::next(j)))
                 {
-                    swapped = true;
                     std::iter_swap(j, std::next(j));
+                    swapped = true;
                 }
             }
             
@@ -72,6 +72,52 @@ namespace shino
             }
         }
     }
+    
+    template <typename RandomAccessIt, typename Compare = std::less<>>
+    void shaker_sort(RandomAccessIt first, RandomAccessIt last, Compare cmp = {})
+    {
+        if (std::distance(first, last) < 2)
+        {
+            return;
+        }
+    
+        for (auto i = std::prev(last); i != first; --i)
+        {
+            bool swapped = false;
+            for (auto j = first; j != i; ++j)
+            {
+                if (!cmp(*j, *std::next(j)))
+                {
+                    std::iter_swap(j, std::next(j));
+                    swapped = true;
+                }
+            }
+        
+            if (!swapped)
+            {
+                break;
+            }
+            
+            swapped = false;
+            
+            // i is already dereferencable
+            for (auto j = i; j != first; --j)
+            {
+                if (!cmp(*std::prev(j), *j))
+                {
+                    std::iter_swap(std::prev(j), j);
+                    swapped = true;
+                }
+            }
+            
+            if (!swapped)
+            {
+                break;
+            }
+        }
+    }
+    
+    
 }
 
 
