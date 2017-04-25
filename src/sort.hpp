@@ -117,8 +117,8 @@ namespace shino
         }
     }
     
-    template <typename RandomAccessIt, typename Compare = std::less<>>
-    void comb_sort(RandomAccessIt first, RandomAccessIt last, Compare cmp = {}, double shrink = 1.3)
+    template <typename RandomAccessIt, typename Compare = std::less_equal<>>
+    void comb_sort(RandomAccessIt first, RandomAccessIt last, double shrink = 1.3, Compare cmp = {})
     {
         auto dist = std::distance(first, last);
         if (dist < 2)
@@ -126,17 +126,23 @@ namespace shino
             return;
         }
         
-        bool sorted = true;
-        for (auto i = std::prev(last); i != first; --i)
+        bool sorted = false;
+        while (!sorted)
         {
             auto j0 = first;
             auto gap = std::floor(dist / shrink);
             shrink *= shrink;
-            if (gap < 1)
+            if (gap > 1)
+            {
+                sorted = false;
+            }
+            else
             {
                 gap = 1;
+                sorted = true;
             }
             auto j1 = std::next(j0, gap);
+
             for (; j1 < last; ++j0, ++j1)
             {
                 if (!cmp(*j0, *j1))

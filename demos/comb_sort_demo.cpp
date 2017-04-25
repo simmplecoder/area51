@@ -12,6 +12,3 @@ int main()
         std::cout << elem << ' ';
     }
 }
-
-
-
