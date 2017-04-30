@@ -8,4 +8,4 @@ makefile
 build/
 manual-build/
 scratch-space/
-python/
+python/benchmarks/
