@@ -7,3 +7,5 @@ docs/
 makefile
 build/
 manual-build/
+scratch-space/
+python/benchmarks/
