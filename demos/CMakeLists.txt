@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.5)
+project(area51)
+
+#demos
+add_executable(random_int_generator_demo random_int_generator_demo.cpp)
+add_executable(random_selector_demo random_selector_demo.cpp)
+add_executable(bubble_sort_demo bubble_sort_demo.cpp)
+add_executable(insertion_sort_demo insertion_sort_demo.cpp)
+add_executable(selection_sort_demo selection_sort_demo.cpp)
+add_executable(shaker_sort_demo shaker_sort_demo.cpp)
+add_executable(comb_sort_demo comb_sort_demo.cpp)
