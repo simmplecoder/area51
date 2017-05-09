@@ -42,7 +42,7 @@ Every function, class, or any other code should get through here before being me
   
    After going through code review, easy of use increased and in general semantics got much clearer.
   
-   Bugfix: post increment was pre incrementing. Fixed. Added full support for Iterator and OutputIterator concept.
+   Bugfix: post increment_both was pre incrementing. Fixed. Added full support for Iterator and OutputIterator concept.
    
    Bugfix: `transformer<>()` was incorrectly deducing types which lead to storing functor as reference. 
    Now the transformer will strip off references and constness.
