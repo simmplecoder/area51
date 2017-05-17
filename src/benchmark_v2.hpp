@@ -2,7 +2,7 @@
 #define AREA51_BENCHMARK_V2_HPP
 
 #include "algorithm.hpp"
-#include "transform_iterator.hpp"
+//#include "transform_iterator.hpp"
 #include "utilities.hpp"
 
 #include <tuple>
@@ -57,19 +57,29 @@ namespace shino
                 typename Unit = std::chrono::milliseconds>
         void get_as(OutputIterator first)
         {
-            auto converter = [](const auto &readings) {
+//            auto converter = [](const auto &readings) {
+//                std::array<Unit, function_count> converted_readings;
+//                std::transform(readings.begin(),
+//                               readings.end(),
+//                               converted_readings.begin(),
+//                               [](const auto &reading) {
+//                                   return std::chrono::duration_cast<Unit>(reading);
+//                               }
+//                );
+//            };
+//
+//            auto converting_iterator = shino::transformer(converter, first);
+//            std::copy(timings.begin(), timings.end(), converting_iterator);
+
+            for (const auto& timing : timings)
+            {
                 std::array<Unit, function_count> converted_readings;
-                std::transform(readings.begin(),
-                               readings.end(),
-                               converted_readings.begin(),
+                std::transform(timing.begin(), timing.end(), converted_readings.begin(),
                                [](const auto &reading) {
                                    return std::chrono::duration_cast<Unit>(reading);
-                               }
-                );
-            };
-            
-            auto converting_iterator = shino::transformer(converter, first);
-            std::copy(timings.begin(), timings.end(), converting_iterator);
+                               });
+                *first++ = converted_readings;
+            }
         }
         
         template<typename Unit = std::chrono::milliseconds>
@@ -167,7 +177,6 @@ namespace shino
             {
                 auto callable_input = gen(input); //separate input creation from benchmark
                 auto start = std::chrono::high_resolution_clock::now();
-                std::apply(std::get<Index>(callables), callable_input);
                 shino::geniune_apply(std::get<Index>(callables), callable_input);
                 auto end = std::chrono::high_resolution_clock::now();
                 timing += end - start;
