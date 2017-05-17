@@ -25,7 +25,7 @@ public:
         if (v.size() != input)
         {
             v.resize(input);
-            (gen)(v.begin(), v.end());
+            gen(v.begin(), v.end());
         }
         
         return std::make_tuple(v, 0);

@@ -16,6 +16,7 @@ add_executable(most_frequent_tests most_frequent_tests.cpp)
 add_executable(tuple_exploder tuple_exploder_tests.cpp)
 add_executable(benchmark_v2_tests benchmark_v2_tests.cpp)
 add_executable(comb_sort_tests comb_sort_tests.cpp)
+add_executable(geniune_apply_tests geniune_apply_tests.cpp)
 
 add_test(circular-buffer-tests circular_buffer_tests)
 add_test(most-frequent-tests most_frequent_tests)
