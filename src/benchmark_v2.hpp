@@ -5,6 +5,7 @@
 //#include "transform_iterator.hpp"
 #include "utilities.hpp"
 
+#include <experimental/filesystem>
 #include <tuple>
 #include <array>
 #include <chrono>
@@ -57,20 +58,6 @@ namespace shino
                 typename Unit = std::chrono::milliseconds>
         void get_as(OutputIterator first)
         {
-//            auto converter = [](const auto &readings) {
-//                std::array<Unit, function_count> converted_readings;
-//                std::transform(readings.begin(),
-//                               readings.end(),
-//                               converted_readings.begin(),
-//                               [](const auto &reading) {
-//                                   return std::chrono::duration_cast<Unit>(reading);
-//                               }
-//                );
-//            };
-//
-//            auto converting_iterator = shino::transformer(converter, first);
-//            std::copy(timings.begin(), timings.end(), converting_iterator);
-
             for (const auto& timing : timings)
             {
                 std::array<Unit, function_count> converted_readings;
@@ -97,6 +84,15 @@ namespace shino
                      const std::string& xlabel = "Data size",
                      const std::string& ylabel = "Time")
         {
+            std::experimental::filesystem::path metafilepath(metafilename);
+            if (!metafilepath.has_filename())
+            {
+                throw std::invalid_argument("metafilename= " + metafilename + " is not a file");
+            }
+
+            metafilepath.remove_filename();
+            std::experimental::filesystem::create_directories(metafilepath);
+
             std::ofstream metafile(metafilename);
             if (!metafile.is_open())
             {
@@ -120,7 +116,8 @@ namespace shino
             
             for (std::size_t filenames_index = 0; filenames_index < filenames.size(); ++filenames_index)
             {
-                const auto& filename = filenames[filenames_index];
+                auto filepath = metafilepath / filenames[filenames_index];
+                const auto& filename = filepath.string();
                 std::ofstream file(filename);
                 
                 if (!file.is_open())

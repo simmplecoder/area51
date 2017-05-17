@@ -121,8 +121,8 @@ int main()
     }
 
     small_winsize_benchmark.save_as<std::chrono::microseconds>("./benchmarks/small-winsize-benchmark/benchmarks.txt",
-                                                               {"./benchmarks/small-winsize-benchmark/comb sort benchmark.txt",
-                                                               "./benchmarks/small-winsize-benchmark/standard sort benchmark.txt"},
+                                                               {"comb sort benchmark.txt",
+                                                               "standard sort benchmark.txt"},
                                                                "window length",
                                                                "microseconds");
 }
