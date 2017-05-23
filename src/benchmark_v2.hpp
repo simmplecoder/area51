@@ -143,6 +143,26 @@ namespace shino
                 }
             }
         }
+
+        auto timings_begin() const
+        {
+            return timings.begin();
+        }
+
+        auto timings_end() const
+        {
+            return timings.end();
+        }
+
+        auto inputs_begin() const
+        {
+            return inputs.begin();
+        }
+
+        auto inputs_end() const
+        {
+            return inputs.end();
+        }
     
     private:
         void strip_file_extension(std::string& filename)
