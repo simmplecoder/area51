@@ -58,7 +58,7 @@ public:
         }
         window_length = input;
         std::uniform_int_distribution<std::size_t> dist(1, input - 1);
-        for (int i = 0; i < v.size(); ++i)
+        for (int i = 0; i < (int)v.size(); ++i)
         {
             v[i] = i;
         }
