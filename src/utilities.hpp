@@ -106,6 +106,16 @@ namespace shino
         return detail::geniune_apply(std::forward<Callable>(callable), std::forward<T>(argument),
                                      is_tuple_like<std::decay_t<T>>{});
     };
+
+    template <typename Function>
+    struct deduce_function_type;
+
+    template <typename R, typename ... ArgTypes>
+    struct deduce_function_type<R(ArgTypes...)>
+    {
+        using return_type = R;
+        using tied_argument_types = std::tuple<ArgTypes...>;
+    };
 }
 
 #endif //AREA51_UTILITIES_HPP
