@@ -4,10 +4,10 @@
 #include <type_traits>
 #include <iostream>
 
-void manipulate_counter(int &counter)
+void manipulate_counter(int& counter)
 {
-    scope_exit{++counter;};
-    scope_exit{++counter;};
+    scope_exit { ++counter; };
+    scope_exit { ++counter; };
 }
 
 void check_capturing_behavior()
@@ -16,8 +16,7 @@ void check_capturing_behavior()
     int& x_ref = x;
     const int x_const = x;
     const int& x_const_ref = x_const;
-    auto lambda = [&]()
-    {
+    auto lambda = [&]() {
 #define error_message "Behavior of capture by reference changed since the code was written"
         static_assert(std::is_same<decltype(x), int>::value, error_message);
         static_assert(std::is_same<decltype(x_ref), int&>::value, error_message);
@@ -47,14 +46,15 @@ void counter_test(int count)
 struct copy_checker
 {
     bool copied;
-    copy_checker():
+
+    copy_checker() :
             copied(false)
     {}
 
-    copy_checker(const copy_checker& other):
+    copy_checker(const copy_checker& other) :
             copied(true)
     {
-        (void)other;
+        (void) other;
     }
 };
 
@@ -62,14 +62,13 @@ void copy_check()
 {
     copy_checker checker;
 
-    scope_exit
-    {
-        if (checker.copied)
-        {
-            std::cerr << "scope_exit copies variables from outside scope\n";
-            throw std::exception();
-        }
-    };
+    scope_exit {
+                   if (checker.copied)
+                   {
+                       std::cerr << "scope_exit copies variables from outside scope\n";
+                       throw std::exception();
+                   }
+               };
 }
 
 void run_tests()

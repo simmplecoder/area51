@@ -2,6 +2,7 @@
 #include <utility>
 
 int increment_both(int, int);
+
 int decrement_both(int);
 
 int main()
@@ -16,7 +17,7 @@ int main()
                   "incorrectly deduced argument types");
 
     static_assert(std::is_same_v<deduced_decrement_function::return_type, int>,
-                                "incorrectly deduced return type");
+                  "incorrectly deduced return type");
     static_assert(std::is_same_v<deduced_decrement_function::tied_argument_types, std::tuple<int>>,
                   "incorrectly deduced argument types");
 

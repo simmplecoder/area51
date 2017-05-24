@@ -5,7 +5,7 @@
 #include <vector>
 
 template <typename Integral = int, typename RandomGenerator = shino::random_int_generator<Integral>,
-        typename Container = std::vector<Integral>>
+          typename Container = std::vector<Integral>>
 class int_range_generator
 {
 

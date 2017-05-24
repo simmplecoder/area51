@@ -8,7 +8,8 @@
 struct integer
 {
     int x;
-    integer(int y):
+
+    integer(int y) :
             x(y)
     {}
 
@@ -47,7 +48,7 @@ std::vector<int> generate_randomized_vector(std::size_t size)
 
 int main()
 {
-    int arr[] = {1, 2, 3, 4 , 5, 1};
+    int arr[] = {1, 2, 3, 4, 5, 1};
     auto answer = shino::most_frequent(std::begin(arr), std::end(arr));
     std::cout << "The most frequent integer is " <<
               *answer.first << " which occured " <<
@@ -64,8 +65,7 @@ int main()
     std::cout << "The most frequent name is " <<
               *most_frequent_name.first << " which occured " <<
               most_frequent_name.second << " times\n";
-    
-    
+
 
     integer weird_integers[] = {0, 1, 2, 3, 4, 5, 6, 1};
     auto most_frequent_integer = shino::most_frequent(std::begin(weird_integers), std::end(weird_integers));
@@ -74,7 +74,7 @@ int main()
         std::cerr << "most_frequent output " << *most_frequent_integer.first <<
                   " whereas it should be 1\n";
     }
-    
+
     std::cout << "The most frequent weird integer is " <<
               *most_frequent_integer.first << " which occured " <<
               most_frequent_integer.second << " times\n";
@@ -89,7 +89,7 @@ int main()
     std::cout << "The most frequent integer in 100'000 elements is " <<
               *output.first << " and it took " <<
               time_taken.count() << " microseconds to find it";
-    
+
     if (time_taken >= std::chrono::seconds(2))
     {
         std::cerr << "Serious regression in efficiency of most_frequent. Did input change?\n";

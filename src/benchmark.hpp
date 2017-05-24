@@ -8,10 +8,12 @@
 #include "transform_iterator.hpp"
 #include "numerical.hpp"
 
-namespace shino {
-    template<typename InputType, typename TimeUnit>
-    struct benchmark_results {
-        template<typename T, typename U>
+namespace shino
+{
+    template <typename InputType, typename TimeUnit>
+    struct benchmark_results
+    {
+        template <typename T, typename U>
         using xy_pairs = std::vector<std::pair<T, U>>;
 
         std::string bench_name;
@@ -20,20 +22,21 @@ namespace shino {
         xy_pairs<InputType, TimeUnit> results;
     };
 
-    template<typename Generator, typename Functor>
-    class benchmarking_session {
+    template <typename Generator, typename Functor>
+    class benchmarking_session
+    {
         const std::string name;
         Generator generator;
         Functor functor;
-        template<typename T, typename U>
+        template <typename T, typename U>
         using xy_pairs = std::vector<std::pair<T, U>>;
 
         xy_pairs<typename Generator::input_type, std::chrono::duration<double>> timings;
     public:
 
         template <typename Gen, typename Func,
-                typename = std::enable_if_t<std::is_same_v<std::decay_t<Gen>, Generator>>,
-                typename = std::enable_if_t<std::is_same_v<std::decay_t<Func>, Functor>>>
+                  typename = std::enable_if_t<std::is_same_v<std::decay_t<Gen>, Generator>>,
+                  typename = std::enable_if_t<std::is_same_v<std::decay_t<Func>, Functor>>>
         benchmarking_session(const std::string& benchname, Gen&& gen, Func&& func):
                 name(benchname),
                 generator(std::forward<Gen>(gen)),
@@ -41,9 +44,9 @@ namespace shino {
         {}
 
         template <typename InputType,
-                typename = std::enable_if_t<std::is_same_v<std::decay_t<InputType>,
-                        typename Generator::input_type>>>
-        void time(InputType &&input, std::size_t runcount)
+                  typename = std::enable_if_t<std::is_same_v<std::decay_t<InputType>,
+                          typename Generator::input_type>>>
+        void time(InputType&& input, std::size_t runcount)
         {
             std::vector<std::chrono::duration<double>> readings(runcount);
             auto generated_input = generator(std::forward<InputType>(input));
@@ -62,9 +65,10 @@ namespace shino {
             timings.push_back(timing);
         }
 
-        template<typename Unit = std::chrono::milliseconds>
-        auto get_as(const std::string &xlabel_text, const std::string &ylabel_text) {
-            auto converter = [](auto &reading) {
+        template <typename Unit = std::chrono::milliseconds>
+        auto get_as(const std::string& xlabel_text, const std::string& ylabel_text)
+        {
+            auto converter = [](auto& reading) {
                 auto converted_time = std::chrono::duration_cast<Unit>(reading.second);
                 return std::make_pair(reading.first, converted_time);
             };
@@ -82,12 +86,13 @@ namespace shino {
         }
     };
 
-    template<typename Generator, typename Functor>
-    auto benchmarker(Generator&& generator, Functor&& functor, const std::string& benchname) {
+    template <typename Generator, typename Functor>
+    auto benchmarker(Generator&& generator, Functor&& functor, const std::string& benchname)
+    {
         return benchmarking_session<std::decay_t<Generator>,
                 std::decay_t<Functor>>(benchname,
-                                                                       std::forward<Generator>(generator),
-                                                                       std::forward<Functor>(functor));
+                                       std::forward<Generator>(generator),
+                                       std::forward<Functor>(functor));
         //NRVO will probably kick in
     }
 }

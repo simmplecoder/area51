@@ -13,11 +13,11 @@ class generator
 public:
     using input_type = std::size_t;
 
-    generator():
+    generator() :
             gen(0, 100'000)
     {}
 
-    generator(generator&& other):
+    generator(generator&& other) :
             gen(std::move(other.gen))
     {}
 
@@ -41,11 +41,11 @@ class different_winsize_generator
 public:
     using input_type = std::size_t;
 
-    different_winsize_generator(std::size_t size):
+    different_winsize_generator(std::size_t size) :
             vsize(size)
     {}
 
-    different_winsize_generator(different_winsize_generator&& other):
+    different_winsize_generator(different_winsize_generator&& other) :
             gen(std::move(other.gen)),
             vsize(other.vsize)
     {}
@@ -60,7 +60,7 @@ public:
         }
         window_length = input;
         std::uniform_int_distribution<std::size_t> dist(1, input - 1);
-        for (int i = 0; i < (int)v.size(); ++i)
+        for (int i = 0; i < (int) v.size(); ++i)
         {
             v[i] = i;
         }
@@ -77,14 +77,12 @@ public:
 int main()
 {
     std::size_t counter = 0;
-    auto combsort_bench = [&counter](std::vector<int>& v, std::size_t)
-    {
+    auto combsort_bench = [&counter](std::vector<int>& v, std::size_t) {
         shino::comb_sort(v.begin(), v.end(), 1.3);
         std::cout << v.front() << ' ' << counter++ << '\n'; //just to tell compiler to not optimize the code away
     };
 
-    auto stdsort_bench = [&counter](std::vector<int>& v, std::size_t)
-    {
+    auto stdsort_bench = [&counter](std::vector<int>& v, std::size_t) {
         std::sort(v.begin(), v.end());
         std::cout << v.front() << ' ' << counter++ << '\n'; //ditto
     };

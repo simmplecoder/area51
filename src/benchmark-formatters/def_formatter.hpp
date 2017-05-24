@@ -35,7 +35,8 @@ namespace shino
         std::time_t current_datetime;
         time(&current_datetime);
         std::string res(std::ctime(&current_datetime));
-        if (res.back() == '\n') { //sometimes happens
+        if (res.back() == '\n')
+        { //sometimes happens
             res.pop_back();
         }
         return res;
@@ -48,17 +49,19 @@ namespace shino
         std::string m_y_label;
 
     public:
-        def_formatter():
+        def_formatter() :
                 m_title("benchmark"),
                 m_x_label("data size"),
                 m_y_label("time taken")
         {}
 
         def_formatter(const def_formatter& other) = delete;
-        def_formatter &operator=(const def_formatter& other) = delete;
+
+        def_formatter& operator=(const def_formatter& other) = delete;
 
         def_formatter(def_formatter&& other) = default;
-        def_formatter &operator=(def_formatter&& other) = default;
+
+        def_formatter& operator=(def_formatter&& other) = default;
 
         void change_title(const std::string& title)
         {
@@ -77,8 +80,8 @@ namespace shino
 
         template <typename TimeUnit, typename Generator, typename ... Callables>
         void format_as(const benchmark<Generator, Callables...>& benchmark,
-                    const std::array<std::string, sizeof...(Callables)>& filenames,
-                    const std::string& root_path = current_datetime())
+                       const std::array<std::string, sizeof...(Callables)>& filenames,
+                       const std::string& root_path = current_datetime())
         {
             std::experimental::filesystem::path path(root_path);
 
@@ -91,10 +94,10 @@ namespace shino
 
             for (std::size_t i = 0; i < sizeof...(Callables); ++i)
             {
-                auto filepath = path/processed_fnames[i];
+                auto filepath = path / processed_fnames[i];
                 create_bench_file<TimeUnit>(filepath, i,
-                                  benchmark.inputs_begin(), benchmark.inputs_end(),
-                                  benchmark.timings_begin(), benchmark.timings_end());
+                                            benchmark.inputs_begin(), benchmark.inputs_end(),
+                                            benchmark.timings_begin(), benchmark.timings_end());
             }
         }
 
@@ -111,7 +114,7 @@ namespace shino
                 if (!p.has_filename())
                 {
                     std::cerr << "the argument doesn't have filename, replacing with "
-                              "function " + std::to_string(i);
+                                         "function " + std::to_string(i);
                     p.clear();
                     p /= "function " + std::to_string(i);
                 }
@@ -131,7 +134,7 @@ namespace shino
         void create_metafile(const fsystem::path& root_path,
                              const std::array<fsystem::path, size>& filenames)
         {
-            fsystem::path metafile_path(root_path/"benchmarks.txt");
+            fsystem::path metafile_path(root_path / "benchmarks.txt");
             std::ofstream metafile(metafile_path.string());
             if (!metafile.good())
             {
@@ -153,8 +156,8 @@ namespace shino
         if the loop is wrong or name is wrong
         */
         template <typename TimeUnit,
-                typename InputDataForwardIterator,
-                typename TimingsForwardIterator>
+                  typename InputDataForwardIterator,
+                  typename TimingsForwardIterator>
         void create_bench_file(const fsystem::path& p, std::size_t index,
                                InputDataForwardIterator input_first, InputDataForwardIterator input_last,
                                TimingsForwardIterator timings_first, TimingsForwardIterator timings_last)
@@ -170,7 +173,7 @@ namespace shino
             bench_file << p.stem().string() << '\n';
 
             while (input_first != input_last &&
-                    timings_first != timings_last)
+                   timings_first != timings_last)
             {
                 auto converted_time = std::chrono::duration_cast<TimeUnit>((*timings_first++)[index]);
                 //                                                          ^^ since *timings is array

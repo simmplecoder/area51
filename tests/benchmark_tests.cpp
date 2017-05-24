@@ -8,6 +8,7 @@ class generator
 {
 public:
     using input_type = std::size_t;
+
     std::vector<std::size_t> operator()(std::size_t size)
     {
         std::vector<std::size_t> v(size);

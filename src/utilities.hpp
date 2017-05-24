@@ -6,40 +6,42 @@
 
 namespace shino
 {
-    
+
     template <typename QualifiedType, typename OriginalType>
     using enable_sfinae = std::enable_if_t<std::is_same_v<std::decay_t<QualifiedType>, OriginalType>>;
-    
+
     template <typename T>
     struct is_straight_tuple
     {
         static constexpr bool value = false;
-        
+
         constexpr operator bool()
         {
             return value;
         }
     };
-    
+
     template <typename ... Ts>
     struct is_straight_tuple<std::tuple<Ts...>>
     {
         static constexpr bool value = true;
-        
+
         constexpr operator bool()
         {
             return value;
         }
     };
-    
+
     template <typename T>
     struct is_std_array : public std::false_type
-    {};
-    
+    {
+    };
+
     template <typename T, std::size_t size>
     struct is_std_array<std::array<T, size>> : public std::true_type
-    {};
-    
+    {
+    };
+
     template <typename T>
     struct is_tuple_like : public std::bool_constant<is_std_array<T>::value || is_straight_tuple<T>::value>
     {
@@ -50,7 +52,7 @@ namespace shino
 //            return value;
 //        }
     };
-    
+
 //    template <typename T, std::size_t size>
 //    struct is_tuple_like<T[size]>
 //    {

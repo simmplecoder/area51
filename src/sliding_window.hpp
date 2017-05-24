@@ -7,18 +7,18 @@
 
 namespace shino
 {
-    template<typename BidirIt,
-             typename OutputIt,
-             typename T = typename std::iterator_traits<BidirIt>::value_type,
-             typename BinaryAddOp = std::plus<>,
-             typename BinaryRemoveOp = std::minus<>>
+    template <typename BidirIt,
+              typename OutputIt,
+              typename T = typename std::iterator_traits<BidirIt>::value_type,
+              typename BinaryAddOp = std::plus<>,
+              typename BinaryRemoveOp = std::minus<>>
     std::pair<BidirIt, OutputIt> sliding_window(BidirIt first,
-                        BidirIt last,
-                        OutputIt d_first,
-                        typename std::iterator_traits<BidirIt>::difference_type length,
-                        T init = {},
-                        BinaryAddOp add_op = {},
-                        BinaryRemoveOp remove_op = {})
+                                                BidirIt last,
+                                                OutputIt d_first,
+                                                typename std::iterator_traits<BidirIt>::difference_type length,
+                                                T init = {},
+                                                BinaryAddOp add_op = {},
+                                                BinaryRemoveOp remove_op = {})
     {
         if (first == last || length == 0)
         {

@@ -32,7 +32,7 @@ void test(std::size_t size)
 {
     auto v = generate_vector(size);
 
-    auto handwritten_result  = handwritten_average(v, 0.0);
+    auto handwritten_result = handwritten_average(v, 0.0);
     auto result = shino::average(v.begin(), v.end(), 0.0);
 
     if (handwritten_result != result)
