@@ -194,7 +194,7 @@ namespace shino
             {
                 auto callable_input = gen(input); //separate input creation from benchmark
                 auto start = std::chrono::high_resolution_clock::now();
-                shino::geniune_apply(std::get<Index>(callables), callable_input);
+                shino::genuine_apply(std::get<Index>(callables), callable_input);
                 auto end = std::chrono::high_resolution_clock::now();
                 timing += end - start;
             }
