@@ -7,7 +7,8 @@
 #include <cstdlib>
 #include <iosfwd>
 
-namespace shino {
+namespace shino
+{
     template <typename T>
     class circular_buffer
     {
@@ -17,13 +18,13 @@ namespace shino {
         std::size_t m_tail;
         bool m_empty;
     public:
-        circular_buffer(std::size_t size):
+        circular_buffer(std::size_t size) :
                 m_size(size),
                 m_head(0),
                 m_tail(0),
                 m_empty(false)
         {
-            m_data = (T*)malloc(size * (sizeof *m_data)); //do not construct yet
+            m_data = (T*) malloc(size * (sizeof *m_data)); //do not construct yet
             if (m_data == nullptr)
             {
                 throw std::bad_alloc();
@@ -33,7 +34,7 @@ namespace shino {
         template <typename ... ArgTypes>
         void emplace(ArgTypes&& ... args)
         {
-            new (m_data + m_head) T(std::forward<ArgTypes>(args)...);
+            new(m_data + m_head) T(std::forward<ArgTypes>(args)...);
             ++m_head;
             if (m_head == m_size)
             {

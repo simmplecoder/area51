@@ -7,12 +7,15 @@
 #include <iostream>
 
 int func0(const std::string&);
+
 void func1(int);
+
 void func2(const char*);
 
 struct dummy_struct
 {
     int do_smth(int);
+
     void get_lazy(std::string);
 };
 
@@ -31,7 +34,7 @@ int main()
     static_assert(std::is_same<deduce_single_parameter_t<decltype(&dummy_struct::get_lazy)>,
             std::string>::value, error_msg);
 #undef error_msg
-    
+
     std::cerr << "test doesn't have runtime component. If it build correctly, it passed\n";
 }
 

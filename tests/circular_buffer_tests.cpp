@@ -63,11 +63,11 @@ void pop_tests()
 
     std::cout << "emplaced 5 more elements: " << buffer << '\n';
 
-    for (std::size_t i= 3; i < 5; ++i)
+    for (std::size_t i = 3; i < 5; ++i)
     {
         if (buffer[i] != i)
         {
-            
+
         }
     }
 
@@ -76,7 +76,6 @@ void pop_tests()
         assert(buffer[i] == i - 5);
     }
 }
-
 
 
 int main()

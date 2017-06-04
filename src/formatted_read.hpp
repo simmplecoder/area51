@@ -15,40 +15,42 @@ namespace detail
     };
 }
 
-namespace shino {
-    template<typename InputStream = std::istream, typename charT,
-            typename char_traits = std::char_traits<charT>,
-            typename Allocator = std::allocator<charT>,
-            typename T,
-            typename ... ArgTypes>
-    void fmtread(InputStream &is,
-                 const std::basic_string<charT, char_traits, Allocator> &format,
-                 const std::basic_string<charT, char_traits, Allocator> &mark,
-                 T &&object,
-                 ArgTypes&& ... args) {
+namespace shino
+{
+    template <typename InputStream = std::istream, typename charT,
+              typename char_traits = std::char_traits<charT>,
+              typename Allocator = std::allocator<charT>,
+              typename T,
+              typename ... ArgTypes>
+    void fmtread(InputStream& is,
+                 const std::basic_string<charT, char_traits, Allocator>& format,
+                 const std::basic_string<charT, char_traits, Allocator>& mark,
+                 T&& object,
+                 ArgTypes&& ... args)
+    {
         auto anchor = format.find_first_of(mark);
         is >> object;
         fmtread(is, format.substr(anchor), mark, args...);
     }
 
-    template<typename InputStream = std::istream, typename charT,
-            typename char_traits = std::char_traits<charT>,
-            typename Allocator = std::allocator<charT>,
-            typename T>
-    void fmtread(InputStream &is,
-                 const std::basic_string<charT, char_traits, Allocator> &format,
-                 const std::basic_string<charT, char_traits, Allocator> &mark,
+    template <typename InputStream = std::istream, typename charT,
+              typename char_traits = std::char_traits<charT>,
+              typename Allocator = std::allocator<charT>,
+              typename T>
+    void fmtread(InputStream& is,
+                 const std::basic_string<charT, char_traits, Allocator>& format,
+                 const std::basic_string<charT, char_traits, Allocator>& mark,
                  T&& object)
     {
         is >> std::forward(object);
     };
 
-    template<typename charT,
-            typename char_traits = std::char_traits<charT>,
-            typename Allocator = std::allocator<charT>,
-            typename T,
-            typename ... ArgTypes>
-    void cfmtread(const std::basic_string<charT, char_traits, Allocator> &format,
+    template <typename charT,
+              typename char_traits = std::char_traits<charT>,
+              typename Allocator = std::allocator<charT>,
+              typename T,
+              typename ... ArgTypes>
+    void cfmtread(const std::basic_string<charT, char_traits, Allocator>& format,
                   T&& object, ArgTypes ... args)
     {
         fmtread(std::cin, format, std::string("{}"), std::forward<T>(object), args...);

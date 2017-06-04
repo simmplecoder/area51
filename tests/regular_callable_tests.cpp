@@ -25,15 +25,16 @@ int main()
     static_assert(std::is_same<shino::regular_callable_t<regular_functor>, regular_functor>::value,
                   "regular_callable_t doesn't work correctly on regular functors");
 
-    static_assert(std::is_same<shino::regular_callable_t<irregular_functor>, shino::callable_wrapper<irregular_functor>>::value,
-                  "regular_callable_t doesn't work correctly on irregular functors");
+    static_assert(
+            std::is_same<shino::regular_callable_t<irregular_functor>, shino::callable_wrapper<irregular_functor>>::value,
+            "regular_callable_t doesn't work correctly on irregular functors");
 
-    auto m = [](int x) {return x;};
+    auto m = [](int x) { return x; };
     using lambda = decltype(m);
 
     static_assert(std::is_same<shino::regular_callable_t<lambda>, shino::callable_wrapper<lambda>>::value,
                   "regular_callable_t doesn't work correctly on lambdas");
-    
+
     std::cerr << "The test doesn't need runtime component. If it build correctly, then it passed.";
 }
 

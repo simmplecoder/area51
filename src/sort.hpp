@@ -8,14 +8,14 @@
 
 namespace shino
 {
-    template<typename RandomAccessIt, typename Compare = std::less<>>
+    template <typename RandomAccessIt, typename Compare = std::less<>>
     void bubble_sort(RandomAccessIt first, RandomAccessIt last, Compare cmp = {})
     {
         if (std::distance(first, last) < 2)
         {
             return;
         }
-        
+
         for (auto i = std::prev(last); i != first; --i)
         {
             bool sorted = true;
@@ -27,14 +27,14 @@ namespace shino
                     sorted = false;
                 }
             }
-            
+
             if (sorted)
             {
                 break;
             }
         }
     }
-    
+
     template <typename RandomAccessIt, typename Compare = std::less<>>
     void insertion_sort(RandomAccessIt first, RandomAccessIt last, Compare cmp = {})
     {
@@ -42,7 +42,7 @@ namespace shino
         {
             return;
         }
-        
+
         for (auto i = std::next(first); i != last; ++i)
         {
             auto j = i;
@@ -53,7 +53,7 @@ namespace shino
             }
         }
     }
-    
+
     template <typename RandomAccessIt, typename Compare = std::less<>>
     void selection_sort(RandomAccessIt first, RandomAccessIt last, Compare cmp = {})
     {
@@ -61,7 +61,7 @@ namespace shino
         {
             return;
         }
-        
+
         for (auto i = first; i != last; ++i)
         {
             for (auto j = std::next(i); j != last; ++j)
@@ -73,7 +73,7 @@ namespace shino
             }
         }
     }
-    
+
     template <typename RandomAccessIt, typename Compare = std::less<>>
     void shaker_sort(RandomAccessIt first, RandomAccessIt last, Compare cmp = {})
     {
@@ -81,7 +81,7 @@ namespace shino
         {
             return;
         }
-    
+
         for (auto i = std::prev(last); i != first; --i)
         {
             bool sorted = true;
@@ -93,12 +93,12 @@ namespace shino
                     sorted = false;
                 }
             }
-        
+
             if (sorted)
             {
                 break;
             }
-            
+
             sorted = true;
             // i is already dereferencable
             for (auto j = i; j != first; --j)
@@ -109,14 +109,14 @@ namespace shino
                     sorted = false;
                 }
             }
-            
+
             if (sorted)
             {
                 break;
             }
         }
     }
-    
+
     template <typename RandomAccessIt, typename Compare = std::less_equal<>>
     void comb_sort(RandomAccessIt first, RandomAccessIt last, double shrink = 1.3, Compare cmp = {})
     {
@@ -125,7 +125,7 @@ namespace shino
         {
             return;
         }
-        
+
         bool sorted = false;
         while (!sorted)
         {
@@ -151,7 +151,7 @@ namespace shino
                     sorted = false;
                 }
             }
-            
+
             if (sorted)
             {
                 break;

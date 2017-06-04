@@ -16,12 +16,11 @@ constexpr std::size_t test_count = 500;
 
 template <typename InputIt, typename OutputIt>
 std::pair<InputIt, OutputIt> sliding_average(InputIt first, InputIt last,
-                    const typename std::iterator_traits<InputIt>::difference_type window_length,
-                    OutputIt d_first)
+                                             const typename std::iterator_traits<InputIt>::difference_type window_length,
+                                             OutputIt d_first)
 {
     using value_type = typename std::iterator_traits<InputIt>::value_type;
-    auto divide = [&window_length](const value_type& value)
-    {
+    auto divide = [&window_length](const value_type& value) {
         return value / window_length;
     };
 
@@ -70,19 +69,20 @@ void sliding_average_test(std::size_t size, std::size_t window_length)
                 "size of the vector\n";
         throw std::exception();
     }
-    
+
     auto input = generate_vector(size);
 
     auto slow_sliding_average_result = slow_sliding_average(input, window_length);
 
     std::vector<int> sliding_average_result(input.size() - window_length + 1);
     using difference_type = std::iterator_traits<std::vector<int>::iterator>::difference_type;
-    sliding_average(input.begin(), input.end(), static_cast<difference_type>(window_length), sliding_average_result.begin());
+    sliding_average(input.begin(), input.end(), static_cast<difference_type>(window_length),
+                    sliding_average_result.begin());
 
     if (sliding_average_result != slow_sliding_average_result)
     {
         std::cerr << "sliding average test: answers from slow and usual version "
-                  "don't match\n";
+                "don't match\n";
         throw std::exception();
     }
 }
