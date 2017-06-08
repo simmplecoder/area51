@@ -5,6 +5,7 @@
 #include <utility>
 #include <iterator>
 #include <cmath>
+#include <algorithm>
 
 namespace shino
 {
@@ -157,6 +158,33 @@ namespace shino
                 break;
             }
         }
+    }
+
+    template <typename RandomAccessIt, typename Compare = std::less<>>
+    void quick_sort(RandomAccessIt first, RandomAccessIt last, Compare cmp = {})
+    {
+        auto distance = std::distance(first, last);
+        if (distance < 2)
+        {
+            return;
+        }
+
+        auto pivot = *std::next(first, distance / 2);
+
+        //we need to find two sequences first ... lower_bound and
+        //upper_bound ... last, where lower_bound ... upper_bound is
+        //contiguous sequence of equal elements
+        auto lower_bound = std::partition(first, last, [&pivot, &cmp](const auto& elem)
+        {
+            return cmp(elem, pivot);
+        });
+        auto upper_bound = std::partition(lower_bound, last, [&pivot, &cmp](const auto& elem)
+        {
+            return !cmp(pivot, elem);
+        });
+
+        quick_sort(first, lower_bound, cmp);
+        quick_sort(upper_bound, last, cmp);
     }
 }
 
