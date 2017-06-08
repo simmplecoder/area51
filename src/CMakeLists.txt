@@ -2,37 +2,42 @@ cmake_minimum_required(VERSION 3.5)
 project(area51)
 
 set(HEADER_FILES algorithm.hpp
-        containers.hpp
-        explode_tuple.cpp
-        iterator.hpp
-        random_int_generator.hpp
-        sliding_window.hpp
-        typelist.cpp
+        algorithm.hpp
+        benchmark-formatters/def_formatter.hpp
         benchmark.hpp
-        custom_mpl.hpp
-        explode_tuple.hpp
-        member_callback.hpp
-        random_selector.hpp
-        string_manip.hpp
-        typelist.hpp
         benchmark_streamer.hpp
-        deduce_first_parameter.hpp
-        fast_find.hpp
-        numerical.cpp
-        regular_callable.hpp
-        timing_session.hpp
-        utilities.hpp
         benchmark_v2.hpp
-        deduce_single_parameter.cpp
-        formatted_read.hpp
-        numerical.hpp
-        scope_exit.hpp
-        transform_iterator.cpp
         circular_buffer.hpp
+        containers.hpp
+        custom_mpl.hpp
+        deduce_first_parameter.hpp
+        deduce_single_parameter.cpp
         deduce_single_parameter.hpp
+        explode_tuple.cpp
+        explode_tuple.hpp
+        fast_find.hpp
+        formatted_read.hpp
+        generators/int_vector_generator.hpp
         input_digit_iterator.hpp
+        iterator.hpp
+        member_callback.hpp
+        numerical.cpp
+        numerical.hpp
         prime_numbers.hpp
+        random_int_generator.hpp
+        random_selector.hpp
+        regular_callable.hpp
+        result_cache.hpp
+        scope_exit.hpp
         sliding_window.cpp
-        transform_iterator.hpp)
+        sliding_window.hpp
+        sort.hpp
+        string_manip.hpp
+        timing_session.hpp
+        transform_iterator.cpp
+        transform_iterator.hpp
+        typelist.cpp
+        typelist.hpp
+        utilities.hpp)
 
 install(FILES ${HEADER_FILES} DESTINATION ~/area51/)

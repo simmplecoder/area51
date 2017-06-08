@@ -8,18 +8,18 @@
 
 namespace shino
 {
-    template<typename ForwardIterator, typename Comparator = std::less<>>
+    template <typename ForwardIterator, typename Comparator = std::less<>>
     std::pair<ForwardIterator, std::size_t> most_frequent(ForwardIterator first,
                                                           ForwardIterator last,
                                                           Comparator comparator = {})
     {
-        auto comp = [&comparator](const auto &lhs, const auto &rhs) {
+        auto comp = [&comparator](const auto& lhs, const auto& rhs) {
             return comparator(lhs.get(), rhs.get());
         };
-        
+
         std::map<std::reference_wrapper<typename std::iterator_traits<ForwardIterator>::value_type>,
                 std::size_t, decltype(comp)> counts(comp);
-        
+
         std::size_t frequency = 0;
         auto most_freq = first;
         while (first != last)
@@ -30,13 +30,13 @@ namespace shino
                 frequency = current;
                 most_freq = first;
             }
-            
+
             ++first;
         }
-        
+
         return std::make_pair(most_freq, frequency);
     }
-    
+
     template <typename CharT = char, typename Allocator>
     auto find_last_of(std::basic_string<CharT, Allocator>& s, const CharT& c)
     {
@@ -47,12 +47,12 @@ namespace shino
                 return i;
             }
         }
-        
+
         if (s[0] == c)
         {
             return static_cast<std::size_t>(0);
         }
-        
+
         return std::basic_string<CharT, Allocator>::npos;
     }
 }

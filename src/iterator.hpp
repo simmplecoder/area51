@@ -4,19 +4,20 @@
 #include <experimental/optional>
 #include <iterator>
 
-namespace shino {
-    template<typename T>
+namespace shino
+{
+    template <typename T>
     class stumbled_iterator : public std::iterator<std::input_iterator_tag, T>
     {
         std::experimental::optional<const T> value;
         std::size_t count;
     public:
-        stumbled_iterator(const T &val, std::size_t count_) :
+        stumbled_iterator(const T& val, std::size_t count_) :
                 value(val),
                 count(count_)
         {}
 
-        stumbled_iterator(T&& val, std::size_t count_):
+        stumbled_iterator(T&& val, std::size_t count_) :
                 value(val),
                 count(count_)
         {}
@@ -25,18 +26,21 @@ namespace shino {
                 count(0)
         {}
 
-        stumbled_iterator &operator++() {
+        stumbled_iterator& operator++()
+        {
             --count;
             return *this;
         }
 
-        stumbled_iterator operator++(int) {
+        stumbled_iterator operator++(int)
+        {
             auto copy = *this;
             --count;
             return copy;
         }
 
-        const T& operator*() {
+        const T& operator*()
+        {
             return *value;
         }
 
@@ -45,7 +49,9 @@ namespace shino {
     };
 
     template <>
-    class stumbled_iterator<void> {};
+    class stumbled_iterator<void>
+    {
+    };
 
     template <typename T>
     bool operator==(const stumbled_iterator<T>& lhs, const stumbled_iterator<T>& rhs)
@@ -67,7 +73,9 @@ namespace shino {
         class proxy
         {
             Container& container;
+
             friend class append_iterator<Container, T>;
+
         public:
             proxy& operator=(const T& value)
             {
@@ -76,19 +84,21 @@ namespace shino {
             }
 
             proxy(const proxy& other) = default;
+
             proxy& operator=(const proxy& other) = delete;
 
             proxy(proxy&& other) = default;
+
             proxy& operator=(proxy&& other) = delete;
 
         private:
             proxy(); //prevent construction from outside
-            proxy(Container& ref):
+            proxy(Container& ref) :
                     container(ref)
             {}
         };
 
-        append_iterator(Container& ref):
+        append_iterator(Container& ref) :
                 container(ref)
         {}
 

@@ -6,10 +6,10 @@
 
 namespace shino
 {
-    template<typename T, typename Func>
+    template <typename T, typename Func>
     class member_callback;
 
-    template<typename T, typename R, typename ... ArgTypes>
+    template <typename T, typename R, typename ... ArgTypes>
     class member_callback<T, R(ArgTypes...)>
     {
         std::shared_ptr<T> object;
@@ -19,17 +19,17 @@ namespace shino
     public:
         using function_pointer = R(T::*)(ArgTypes ...);
 
-        member_callback(const std::shared_ptr<T> &ptr, R(T::* function)(ArgTypes...)) :
+        member_callback(const std::shared_ptr<T>& ptr, R(T::* function)(ArgTypes...)) :
                 object(ptr),
                 callback(function)
         {}
 
-        member_callback(std::shared_ptr<T> &&ptr, R(T::* function)(ArgTypes...)) :
+        member_callback(std::shared_ptr<T>&& ptr, R(T::* function)(ArgTypes...)) :
                 object(std::move(ptr)),
                 callback(function)
         {}
 
-        R operator()(ArgTypes &&... args)
+        R operator()(ArgTypes&& ... args)
         {
             return (object->*callback)(std::forward<ArgTypes>(args)...);
         }

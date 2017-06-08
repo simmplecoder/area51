@@ -34,10 +34,9 @@ void multiplication_test(const std::vector<T>& input)
         correct_answer[i] = input[i] * 2;
     }
 
-    std::vector<T> transformation_result(input.size()) ;
+    std::vector<T> transformation_result(input.size());
 
-    auto multiply_by_two = [](const T& value)
-    {
+    auto multiply_by_two = [](const T& value) {
         return value * 2;
     };
 
@@ -64,8 +63,7 @@ void stringify_test(const std::vector<T>& input)
     std::vector<std::string> transformation_result(input.size());
 
     std::copy(input.begin(), input.end(),
-              shino::transformer([](const T& value)
-                                 {
+              shino::transformer([](const T& value) {
                                      return "The number is: " + std::to_string(value);
                                  },
                                  transformation_result.begin()));

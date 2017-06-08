@@ -9,13 +9,15 @@
 #include <tuple>
 #include "iterator.hpp"
 
-namespace shino {
-    template<typename InputIt, typename Separator = std::string, typename Concluder = std::string>
+namespace shino
+{
+    template <typename InputIt, typename Separator = std::string, typename Concluder = std::string>
     std::string join(InputIt first, InputIt last,
-                     const Separator &separator,
-                     const Concluder &concluder)
+                     const Separator& separator,
+                     const Concluder& concluder)
     {
-        if (first == last) {
+        if (first == last)
+        {
             return concluder;
         }
 
@@ -23,7 +25,8 @@ namespace shino {
         ss << *first;
         ++first;
 
-        while (first != last) {
+        while (first != last)
+        {
             ss << separator;
             ss << *first;
             ++first;
@@ -41,11 +44,11 @@ namespace shino {
         std::size_t r = 0;
         std::size_t len = str.length();
         for (typename std::basic_string<charT, char_traits>::size_type i = 0;
-                i < str.length(); ++i)
+             i < str.length(); ++i)
         {
             if (i <= r)
             {
-                 z[i] = std::min(r - i + 1, z[i - l]);
+                z[i] = std::min(r - i + 1, z[i - l]);
             }
             while (i + z[i] < len && str[z[i]] == str[i + z[i]])
             {
@@ -66,17 +69,19 @@ namespace shino {
         std::size_t l = 0;
         std::size_t r = 0;
         std::size_t len = str.length();
-        std::vector<std::size_t> z (len);
-        for (int i=1; i<len; ++i) {
-            if (i <= r) {
+        std::vector<std::size_t> z(len);
+        for (int i = 1; i < len; ++i)
+        {
+            if (i <= r)
+            {
                 z[i] = std::min(r - i + 1, z[i - l]);
             }
-            while (i+z[i] < len && str[z[i]] == str[i+z[i]])
+            while (i + z[i] < len && str[z[i]] == str[i + z[i]])
                 ++z[i];
-            if (i+z[i]-1 > r)
-                l = i,  r = i+z[i]-1;
-            }
-            return z;
+            if (i + z[i] - 1 > r)
+                l = i, r = i + z[i] - 1;
+        }
+        return z;
     }
 
     template <typename charT, typename char_traits = std::char_traits<charT>, class Allocator = std::allocator<charT>>
@@ -89,7 +94,7 @@ namespace shino {
             return in;
 
         std::string result;
-        if (n% 2 == 0)
+        if (n % 2 == 0)
         {
             auto half = in * (n / 2);
             return half + half;
@@ -107,7 +112,6 @@ namespace shino {
         return in * n;
     }
 }
-
 
 
 #endif //CUSTOM_LIBRARY_STRINGMANIP_HPP

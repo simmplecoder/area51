@@ -12,11 +12,11 @@ class generator
 public:
     using input_type = std::size_t;
 
-    generator(int a, int b):
+    generator(int a, int b) :
             gen(a, b)
     {}
 
-    generator(generator&& other):
+    generator(generator&& other) :
             gen(std::move(other.gen))
     {}
 
@@ -32,7 +32,6 @@ public:
         return std::make_tuple(v);
     }
 };
-
 
 
 int main()

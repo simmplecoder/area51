@@ -6,11 +6,15 @@
 #include <iterator>
 #include "scope_exit.hpp"
 
-namespace shino {
-    namespace impl {
-        template<typename BidirIt, typename T>
-        BidirIt find(std::true_type, BidirIt first, BidirIt last, const T &value) {
-            if (first == last) {
+namespace shino
+{
+    namespace impl
+    {
+        template <typename BidirIt, typename T>
+        BidirIt find(std::true_type, BidirIt first, BidirIt last, const T& value)
+        {
+            if (first == last)
+            {
                 return last;
             }
 
@@ -19,13 +23,16 @@ namespace shino {
             *real_last = value;
             scope_exit { *real_last = copy; };
             auto it = first;
-            for (;; ++it) {
+            for (;; ++it)
+            {
                 if (*it == value)
                     break;
             }
 
-            if (it == real_last) {
-                if (copy == value) {
+            if (it == real_last)
+            {
+                if (copy == value)
+                {
                     return real_last;
                 }
                 return last;
@@ -35,17 +42,19 @@ namespace shino {
 
         }
 
-        template<typename BidirIt, typename T>
-        BidirIt find(std::false_type, BidirIt first, BidirIt last, const T &value) {
+        template <typename BidirIt, typename T>
+        BidirIt find(std::false_type, BidirIt first, BidirIt last, const T& value)
+        {
             return std::find(first, last, value);
         }
     }
 
 
-    template<typename BidirIt, typename T>
-    BidirIt find(BidirIt first, BidirIt last, const T &value) {
+    template <typename BidirIt, typename T>
+    BidirIt find(BidirIt first, BidirIt last, const T& value)
+    {
         return impl::find(
-                std::integral_constant<bool, std::is_nothrow_copy_assignable<std::remove_reference_t<decltype(*first)> >::value> {},
+                std::integral_constant<bool, std::is_nothrow_copy_assignable<std::remove_reference_t<decltype(*first)>>::value> {},
                 first, last, value);
         //I'd like to allow T to be different from *first
     }

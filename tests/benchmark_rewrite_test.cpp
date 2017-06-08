@@ -1,6 +1,8 @@
 #include "../src/benchmark_v2.hpp"
 #include "../src/random_int_generator.hpp"
 #include "../src/sort.hpp"
+#include "../src/benchmark-formatters/def_formatter.hpp"
+
 #include <cmath>
 #include <iostream>
 #include <memory>
@@ -118,10 +120,13 @@ int main()
         small_winsize_benchmark.time(i, 3);
     }
 
-    small_winsize_benchmark.save_as<std::chrono::microseconds>("./benchmarks/small-winsize-benchmark/benchmarks.txt",
-                                                               {"comb sort benchmark.txt",
-                                                                "standard sort benchmark.txt"},
-                                                               "window length",
-                                                               "microseconds");
+    shino::def_formatter formatter;
+
+    formatter.change_title("Def formatter test run");
+    formatter.change_x_label("window length");
+    formatter.change_y_label("microseconds");
+
+    formatter.format_as<std::chrono::microseconds>(small_winsize_benchmark,
+                                                   {"comb sort benchmark.txt", "standard sort benchmark.txt"});
 }
 
