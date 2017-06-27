@@ -5,8 +5,8 @@
 #---------------------------------------------------------------------------
 DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "area51"
-PROJECT_NUMBER         =
-PROJECT_BRIEF          =
+PROJECT_NUMBER         = 1.0
+PROJECT_BRIEF          = "Collection of useful utilities in day to day programming."
 PROJECT_LOGO           =
 OUTPUT_DIRECTORY       = ./docs/
 CREATE_SUBDIRS         = NO
