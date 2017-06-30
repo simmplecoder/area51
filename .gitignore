@@ -4,6 +4,7 @@ cmake-build-debug/
 cmake-build-release/
 logs/Log.md
 docs/
+!docs/html
 makefile
 build/
 manual-build/
