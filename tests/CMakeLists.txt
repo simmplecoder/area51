@@ -4,6 +4,7 @@ project(area51)
 include_directories(../src/)
 
 #tests
+#executables
 add_executable(sliding_window_tests sliding_window_tests.cpp)
 add_executable(first_parameter_extraction_tests first_parameter_extraction_tests.cpp)
 add_executable(transform_iterator_tests transform_iterator_tests.cpp)
@@ -29,7 +30,9 @@ add_executable(benchmark_rewrite_test benchmark_rewrite_test.cpp)
 target_link_libraries(benchmark_rewrite_test c++experimental c++abi)
 
 add_executable(quick_sort_tests quick_sort_tests.cpp)
+add_executable(fill_by_sequence_tests fill_by_sequence_tests.cpp)
 
+#tests
 add_test(circular-buffer-tests circular_buffer_tests)
 add_test(most-frequent-tests most_frequent_tests)
 add_test(numerical-tests numerical_tests)
@@ -41,3 +44,4 @@ add_test(transform-iterator-tests transform_iterator_tests)
 add_test(result-cache-tests result_cache_tests)
 add_test(utilities-test utilities_tests)
 add_test(quick-sort-tests quick_sort_tests)
+add_test(fill-by-sequence-tests fill_by_sequence_tests)
