@@ -268,26 +268,6 @@ namespace shino
         quick_sort(upper_bound, last, cmp);
     }
 
-//    namespace detail
-//    {
-//        template <typename RandomAccessIt, typename Compare = std::less<>, typename T>
-//        void merge_sort_impl(RandomAccessIt first, RandomAccessIt last,
-//                             Compare cmp = {}, std::vector<T>& scratch_space)
-//        {
-//            auto distance = std::distance(first, last);
-//            if (distance < 2)
-//            {
-//                return;
-//            }
-//
-//            auto middle = std::next(first, distance / 2);
-//            merge_sort(first, middle, cmp);
-//            merge_sort(middle, last, cmp);
-//
-//
-//        }
-//    }
-
     template <typename RandomAccessIt, typename Compare = std::less<>>
     void merge_sort(RandomAccessIt first, RandomAccessIt last, Compare cmp = {})
     {

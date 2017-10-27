@@ -55,5 +55,7 @@ namespace shino
 
         return std::basic_string<CharT, Allocator>::npos;
     }
+
+
 }
 #endif //AREA51_ALGORITHM_HPP
