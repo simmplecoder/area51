@@ -36,18 +36,25 @@ const char* green_color = "\033[0;32m";
 const char* red_color = "\033[0;31m";
 const char* reset_color = "\033[0m";
 
-constexpr std::size_t max_size = 10'000;
+constexpr std::size_t max_size = 100;
 
 int main()
 {
     generator gen;
+    std::vector<std::vector<int>> input_data;
+    input_data.reserve(max_size);
+    for (std::size_t i = 0; i <= max_size; ++i)
+    {
+        input_data.push_back(gen(i));
+    }
+
+
     std::vector<std::size_t> failed_sizes;
 
     for (std::size_t i = 0; i <= max_size; ++i)
     {
-        auto v = gen(i);
-        shino::merge_sort(v.begin(), v.end());
-        if (std::is_sorted(v.begin(), v.end()))
+        shino::merge_sort(input_data[i].begin(), input_data[i].end());
+        if (std::is_sorted(input_data[i].begin(), input_data[i].end()))
         {
             std::cout << green_color << "sorting a vector with size " << i << " succeeded\n"
                       << reset_color;

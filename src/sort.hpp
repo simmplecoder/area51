@@ -14,6 +14,7 @@
 #include <iterator>
 #include <cmath>
 #include <algorithm>
+#include <iostream>
 
 namespace shino
 {
@@ -268,24 +269,8 @@ namespace shino
         quick_sort(upper_bound, last, cmp);
     }
 
-    template <typename RandomAccessIt, typename Compare = std::less<>>
-    void merge_sort(RandomAccessIt first, RandomAccessIt last, Compare cmp = {})
-    {
-        auto distance = std::distance(first, last);
-        if (distance < 2)
-        {
-            return;
-        }
-
-        auto middle = std::next(first, distance / 2);
-        merge_sort(first, middle, cmp);
-        merge_sort(middle, last, cmp);
-
-        std::inplace_merge(first, middle, last, cmp);
-    }
-
     template <typename BidirectionalIt, typename OutputIt,
-              typename Compare = std::less<>>
+            typename Compare = std::less<>>
     void merge(BidirectionalIt first, BidirectionalIt middle,
                BidirectionalIt last, OutputIt d_first,
                Compare cmp = {})
@@ -312,6 +297,69 @@ namespace shino
         {
             std::move(first, middle, d_first);
         }
+    }
+
+    namespace detail
+    {
+        template <typename RandomAccessIt, typename Compare = std::less<>,
+                  typename T>
+        void merge_sort_impl(RandomAccessIt first, RandomAccessIt last,
+                        std::vector<T>& buffer,
+                        Compare cmp = {})
+        {
+            auto distance = std::distance(first, last);
+            if (distance < 2)
+            {
+                return;
+            }
+
+            auto middle = std::next(first, distance / 2);
+            merge_sort_impl(first, middle, buffer, cmp);
+            merge_sort_impl(middle, last, buffer, cmp);
+
+            shino::merge(first, middle, last, buffer.begin(), cmp);
+            std::copy(buffer.begin(), buffer.end(), std::ostream_iterator<int>(std::cout, " "));
+            std::cout << '\n';
+            auto buffer_last = std::next(buffer.begin(),
+                                         std::distance(first, last));
+
+            std::move(buffer.begin(), buffer_last, first);
+        }
+    }
+
+    template <typename RandomAccessIt, typename Compare = std::less<>>
+    void merge_sort(RandomAccessIt first, RandomAccessIt last, Compare cmp = {})
+    {
+        auto distance = std::distance(first, last);
+        if (distance < 2)
+        {
+            return;
+        }
+
+        using value_type = typename std::iterator_traits<RandomAccessIt>::value_type;
+        auto middle = std::next(first, std::distance(first, last) / 2 + 1); //just to be secure
+        std::vector<value_type> buffer; //use old syntax to avoid surprises
+        buffer.reserve(std::distance(first, last) / 2 + 2);
+        buffer.insert(buffer.begin(), first, middle);
+        detail::merge_sort_impl(first, last, buffer, cmp);
+        std::copy(first, last, std::ostream_iterator<value_type>(std::cout, " "));
+        std::cout << '\n' << buffer.capacity() << ' ' << buffer.size() << "==================\n";
+    }
+
+    template <typename RandomAccessIt, typename Compare = std::less<>>
+    void trivial_merge_sort(RandomAccessIt first, RandomAccessIt last, Compare cmp = {})
+    {
+        auto distance = std::distance(first, last);
+        if (distance < 2)
+        {
+            return;
+        }
+
+        auto middle = std::next(first, distance / 2);
+        merge_sort(first, middle, cmp);
+        merge_sort(middle, last, cmp);
+
+        std::inplace_merge(first, middle, last, cmp);
     }
 }
 
