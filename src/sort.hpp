@@ -284,7 +284,35 @@ namespace shino
         std::inplace_merge(first, middle, last, cmp);
     }
 
+    template <typename BidirectionalIt, typename OutputIt,
+              typename Compare = std::less<>>
+    void merge(BidirectionalIt first, BidirectionalIt middle,
+               BidirectionalIt last, OutputIt d_first,
+               Compare cmp = {})
+    {
+        auto first2 = middle;
+        while (first != middle && first2 != last)
+        {
+            if (cmp(*first, *first2))
+            {
+                *d_first++ = std::move(*first++);
+            }
+            else
+            {
+                *d_first++ = std::move(*first2++);
+            }
+        }
 
+        if (first == middle)
+        {
+            std::move(first2, last, d_first);
+        }
+
+        if (first2 == last)
+        {
+            std::move(first, middle, d_first);
+        }
+    }
 }
 
 

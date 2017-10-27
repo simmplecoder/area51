@@ -19,6 +19,9 @@ add_executable(tuple_exploder tuple_exploder_tests.cpp)
 add_executable(merge_sort_tests merge_sort_tests.cpp)
 target_include_directories(merge_sort_tests PUBLIC ../src)
 
+add_executable(merge_tests merge_tests.cpp)
+target_include_directories(merge_tests PUBLIC ../src)
+
 add_executable(benchmark_v2_tests benchmark_v2_tests.cpp)
 target_link_libraries(benchmark_v2_tests c++experimental c++abi)
 
